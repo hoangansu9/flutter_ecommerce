@@ -5,21 +5,7 @@ class HolePainter extends CustomPainter {
     @required this.color,
     @required this.holeSize,
   });
-   MaterialColor splashRimColor = const MaterialColor(
-    0xFF010035,
-    const <int, Color>{
-      50: const Color(0xFF010035),
-      100: const Color(0xFF010035),
-      200: const Color(0xFF010035),
-      300: const Color(0xFF010035),
-      400: const Color(0xFF010035),
-      500: const Color(0xFF010035),
-      600: const Color(0xFF010035),
-      700: const Color(0xFF010035),
-      800: const Color(0xFF010035),
-      900: const Color(0xFF010035),
-    },
-  );
+
   Color color;
   double holeSize;
 
@@ -27,14 +13,14 @@ class HolePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     double radius = holeSize / 2;
     Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    Rect outerCircleRect = Rect.fromCircle(center: Offset(size.width / 2, size.height / 2), radius: radius);
-    Rect innerCircleRect = Rect.fromCircle(center: Offset(size.width / 2, size.height / 2), radius: radius / 2);
+    Rect outerCircleRect = Rect.fromCircle(
+        center: Offset(size.width / 2, size.height / 2), radius: radius);
+    Rect innerCircleRect = Rect.fromCircle(
+        center: Offset(size.width / 2, size.height / 2), radius: radius / 2);
 
     Path transparentHole = Path.combine(
       PathOperation.difference,
-      Path()..addRect(
-          rect
-      ),
+      Path()..addRect(rect),
       Path()
         ..addOval(outerCircleRect)
         ..close(),
@@ -51,7 +37,8 @@ class HolePainter extends CustomPainter {
     );
 
     canvas.drawPath(transparentHole, Paint()..color = color);
-    canvas.drawPath(halfTransparentRing, Paint()..color = splashRimColor.withOpacity(0.5));
+    canvas.drawPath(halfTransparentRing,
+        Paint()..color = const Color(0xFF010035).withOpacity(0.5));
   }
 
   @override

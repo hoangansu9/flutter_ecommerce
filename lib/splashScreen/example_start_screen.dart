@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 class ExampleStartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Color viewAllC = const Color(0xFFFF6E4E);
     return Scaffold(
         body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -59,64 +58,12 @@ class ExampleStartScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(left: 100, top: 101),
                 child: Text(
                   "view all",
-                  style: TextStyle(color: viewAllC, fontSize: 15),
+                  style:
+                      TextStyle(color: const Color(0xFFFF6E4E), fontSize: 15),
                 ),
               ),
             ],
           ),
         ]));
-  }
-
-  // ignore: non_constant_identifier_names
-  Widget selectCategories(BuildContext context) {
-    Color viewAllC = const Color(0xFFFF6E4E);
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
-            height: 32.0,
-            margin: const EdgeInsets.only(left: 17, top: 101),
-            child: Text(
-              "Select Categories",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Container(
-            height: 19.0,
-            margin: const EdgeInsets.only(right: 32, top: 101),
-            child: Text(
-              "view all",
-              style: TextStyle(color: viewAllC, fontSize: 15),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget locationSelect(BuildContext context) {
-    return Scaffold(
-      body: (Column(
-        children: <Widget>[
-          Container(
-            height: 32.0,
-            margin: const EdgeInsets.only(left: 17, top: 1000),
-            child: Text(
-              "Hồ Chí Minh",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      )),
-    );
   }
 }

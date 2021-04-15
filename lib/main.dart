@@ -1,13 +1,11 @@
+import 'package:app_ecommerce/homepage/homepage.dart';
 import 'package:app_ecommerce/splashScreen/animation_screen.dart';
-import 'package:app_ecommerce/splashScreen/example_start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
 }
-
-
 
 class MyApp extends StatelessWidget {
   @override
@@ -29,12 +27,9 @@ class MyApp extends StatelessWidget {
       },
     );
 
-     return MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: splashRimColor,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: new ThemeData(scaffoldBackgroundColor: const Color(0xFFE5E5E5)),
       home: MyHomePage(),
     );
   }
@@ -49,20 +44,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: Stack(
-            children: <Widget>[
-              Scaffold(
-                  body: ExampleStartScreen()
-              ),
-              IgnorePointer(
-                  child: AnimationScreen(
-                      color: Theme.of(context).accentColor
-                  )
-              )
-            ]
-        )
-    );
+        child: Stack(children: <Widget>[
+      Scaffold(body: HomePage()),
+      IgnorePointer(
+          child: AnimationScreen(color: Theme.of(context).accentColor))
+    ]));
   }
 }
-
-
