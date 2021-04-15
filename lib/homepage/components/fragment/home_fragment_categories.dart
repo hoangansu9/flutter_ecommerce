@@ -21,7 +21,6 @@ class CategoriesStore extends StatelessWidget {
                   child: Icon(
                     Icons.add_location_outlined,
                     color: const Color(0xFFFF6E4E),
-                  
                     size: 20.0,
                     semanticLabel: 'Location',
                   ),
@@ -66,7 +65,7 @@ class CategoriesStore extends StatelessWidget {
                       ),
                       Container(
                         height: 19.0,
-                        margin: const EdgeInsets.only(left: 120, top: 15),
+                        margin: const EdgeInsets.only(left: 100, top: 15),
                         child: Text(
                           "view all",
                           style: TextStyle(
@@ -82,14 +81,27 @@ class CategoriesStore extends StatelessWidget {
               height: 10,
             ),
             Container(
+              margin: const EdgeInsets.only(top: 0),
               width: MediaQuery.of(context).size.width,
-              height: 71,
+              height: 94,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: categories.length,
                   itemBuilder: (context, index) {
-                    return CategoriesItem(
-                      categorymm: categories[index],
+                    // return CategoriesItem(category: categories[index]);
+                    return Column(
+                      children: [
+                        Container(
+                          height: 71,
+                          child: CategoriesItem(category: categories[index]),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 4.0, bottom: 2),
+                          height: 16,
+                          child: Text(categories[index].title,
+                              style: TextStyle(color: const Color(0xff010035))),
+                        )
+                      ],
                     );
                   }),
             ),
@@ -100,60 +112,21 @@ class CategoriesStore extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable here!
-// class CategoriesItem extends StatelessWidget {
-//   Categories category;
-//   CategoriesItem({this.category});// nó bị chỗ này k chiuy3n6 dc
-//   Color _colorContainer = Colors.blue;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 94,
-//       height: 94,
-//       padding: EdgeInsets.all(5),
-//       child: Image.asset(
-//         category.image,
-//         color: _colorContainer,
-//         // color: const Color(0xFFB3B3C3),
-//       ),
-//       decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-//     );
-//   }
-// }
-
 // ignore: must_be_immutable
-class CategoriesItem extends StatefulWidget {
-  final categorymm;
-  CategoriesItem({this.categorymm});
-
-  @override
-  _CategoriesItemState createState() => _CategoriesItemState();
-}
-
-class _CategoriesItemState extends State<CategoriesItem> {
-  Color _colorContainer = Colors.blue;
-  Categories category; /////////
-  /////////////////////////// CategoriesItem({this.category}); chĩ cần chuyển cái này thôi
+class CategoriesItem extends StatelessWidget {
+  Categories category;
+  CategoriesItem({this.category}); // nó bị chỗ này k chiuy3n6 dc
   @override
   Widget build(BuildContext context) {
-    return Ink(
-        child: InkWell(
-      child: Container(
-        width: 94,
-        height: 94,
-        padding: EdgeInsets.all(5),
-        // child: Image.asset(category.image),
-        child: Icon(Icons.do_not_touch ,color: _colorContainer ,),
-        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+    return Container(
+      width: 94,
+      height: 94,
+      padding: EdgeInsets.all(5),
+      child: Image.asset(
+        category.image,
+        color: const Color(0xFFB3B3C3),
       ),
-      onTap: () {
-            setState(() {
-              _colorContainer = _colorContainer == Colors.red ? 
-                    Colors.blue : 
-                    Colors.red;
-            });
-      }
-    ));
-  
-}
+      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+    );
+  }
 }

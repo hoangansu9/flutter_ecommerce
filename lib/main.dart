@@ -11,24 +11,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    const MaterialColor splashRimColor = const MaterialColor(
-      0xFF010035,
-      const <int, Color>{
-        50: const Color(0xFF010035),
-        100: const Color(0xFF010035),
-        200: const Color(0xFF010035),
-        300: const Color(0xFF010035),
-        400: const Color(0xFF010035),
-        500: const Color(0xFF010035),
-        600: const Color(0xFF010035),
-        700: const Color(0xFF010035),
-        800: const Color(0xFF010035),
-        900: const Color(0xFF010035),
-      },
-    );
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       theme: new ThemeData(scaffoldBackgroundColor: const Color(0xFFE5E5E5)),
       home: MyHomePage(),
     );
