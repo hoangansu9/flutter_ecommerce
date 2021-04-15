@@ -1,6 +1,8 @@
+import 'package:app_ecommerce/homepage/components/fragment/home_filter_fragment.dart';
 import 'package:app_ecommerce/model/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:line_icons/line_icon.dart';
 
 class CategoriesStore extends StatelessWidget {
   @override
@@ -43,7 +45,12 @@ class CategoriesStore extends StatelessWidget {
                     size: 24.0,
                     semanticLabel: 'Location',
                   ),
-                )
+                ),
+                Container(
+                  alignment: Alignment.topRight,
+                  margin: EdgeInsets.only(left: 40, top: 20),
+                  child: HomeFilterFragment(),
+                ),
               ],
             ),
             Row(
