@@ -2,7 +2,6 @@ import 'package:app_ecommerce/homepage/components/fragment/home_filter_fragment.
 import 'package:app_ecommerce/model/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:line_icons/line_icon.dart';
 
 class CategoriesStore extends StatelessWidget {
   @override
@@ -19,7 +18,7 @@ class CategoriesStore extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  margin: const EdgeInsets.only(left: 17, top: 20),
+                  margin: const EdgeInsets.only(left: 100, top: 20),
                   child: Icon(
                     Icons.add_location_outlined,
                     color: const Color(0xFFFF6E4E),
@@ -48,7 +47,7 @@ class CategoriesStore extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  margin: EdgeInsets.only(left: 40, top: 20),
+                  margin: EdgeInsets.only(left: 20, top: 20),
                   child: HomeFilterFragment(),
                 ),
               ],
@@ -58,21 +57,23 @@ class CategoriesStore extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Container(
-                        height: 32.0,
-                        margin: const EdgeInsets.only(left: 17, top: 20),
-                        child: Text(
-                          "Select Categories",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
+                      Expanded(
+                        child: Container(
+                          height: 32.0,
+                          margin: const EdgeInsets.only(left: 15),
+                          child: Text(
+                            "Select Category",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ),
                       Container(
                         height: 19.0,
-                        margin: const EdgeInsets.only(left: 100, top: 15),
+                        margin: const EdgeInsets.only(right: 10),
                         child: Text(
                           "view all",
                           style: TextStyle(

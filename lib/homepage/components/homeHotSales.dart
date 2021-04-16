@@ -19,21 +19,23 @@ class HomeHotSales extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Container(
-                        height: 32.0,
-                        margin: const EdgeInsets.only(left: 17, top: 20),
-                        child: Text(
-                          "Hot sales",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
+                      Expanded(
+                        child: Container(
+                          height: 32.0,
+                          margin: const EdgeInsets.only(left: 15),
+                          child: Text(
+                            "Hot Seller",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ),
                       Container(
                         height: 19.0,
-                        margin: const EdgeInsets.only(left: 180, top: 15),
+                        margin: const EdgeInsets.only(right: 10),
                         child: Text(
                           "see more",
                           style: TextStyle(

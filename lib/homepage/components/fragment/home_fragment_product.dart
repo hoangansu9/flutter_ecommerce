@@ -21,7 +21,7 @@ class ProductPopular extends StatelessWidget {
                   height: 32.0,
                   margin: const EdgeInsets.only(left: 15),
                   child: Text(
-                    "Select Categories",
+                    "Best Seller",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 25,
@@ -34,7 +34,7 @@ class ProductPopular extends StatelessWidget {
                 height: 19.0,
                 margin: const EdgeInsets.only(right: 10),
                 child: Text(
-                  "view all",
+                  "see more",
                   style:
                       TextStyle(color: const Color(0xFFFF6E4E), fontSize: 15),
                 ),
