@@ -51,7 +51,7 @@ class HomeHotSales extends StatelessWidget {
               height: 10,
             ),
             Container(
-                width: 378,
+                width: MediaQuery.of(context).size.width,
                 height: 132,
                 child: CarouselSlider(
                   options: CarouselOptions(
