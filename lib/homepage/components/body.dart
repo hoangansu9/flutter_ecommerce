@@ -17,7 +17,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   int _selectedIndex = 0;
   int badge = 2;
-  List<Widget> screen = [HomeDetail(), ProductDetail(), Cartpage()];
+  List<Widget> screen = [HomeDetail(), Cartpage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,20 +75,18 @@ class _BodyState extends State<Body> {
                 ],
                 selectedIndex: _selectedIndex,
                 onTabChange: (index) {
+                  // setState(() {
+                  // _selectedIndex = index;
                   setState(() {
-                    _selectedIndex = index;
-                    //        setState(() {
-                    //   if (index != 2) {
-                    //     setState(() {
-                    //       _selectedIndex = index;
-                    //     });
-
-                    //     print(_selectedIndex);
-                    //   } else {
-                    //     Navigator.of(context).push(
-                    //       MaterialPageRoute(builder: (context) => CartPage()),
-                    //     );
-                    //   }
+                    if (index == 2) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => Cartpage()),
+                      );
+                    } else {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    }
                     // }
                   });
                 }),

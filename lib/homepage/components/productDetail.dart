@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
 
 class ProductDetail extends StatefulWidget {
+  // int selectIndex = 2;
+  static String routeName = "/product_detail_screen";
+
   @override
   _ProductDetailState createState() => _ProductDetailState();
 }
@@ -11,12 +14,21 @@ class ProductDetail extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _topNav(context),
-        _sliderProductDetail(context),
-        _productInfo(context)
-      ],
+    // return Column(
+    //   children: [
+    //     _topNav(context),
+    //     _sliderProductDetail(context),
+    //     _productInfo(context)
+    //   ],
+    // );
+    return Scaffold(
+      body: Column(
+        children: [
+          _topNav(context),
+          _sliderProductDetail(context),
+          _productInfo(context)
+        ],
+      ),
     );
   }
 }
@@ -43,7 +55,9 @@ Widget _topNav(BuildContext context) {
           ),
           color: Colors.white,
           tooltip: "Back",
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       Container(
@@ -127,157 +141,200 @@ Widget _sliderProductDetail(BuildContext context) {
 Widget _productInfo(BuildContext context) {
   return Row(
     children: [
-      Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        margin: EdgeInsets.only(top: 7),
-        width: MediaQuery.of(context).size.width,
-        // height: MediaQuery.of(context).size.height,
-        height: 320,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                    child: Container(
-                  margin: EdgeInsets.only(top: 28, left: 30),
-                  child: Text(
-                    "Galaxy Note 20 Ultra",
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xff010035)),
-                  ),
-                )),
-                Container(
-                  height: 37,
-                  width: 37,
-                  margin: EdgeInsets.only(right: 37, top: 28),
-                  decoration: BoxDecoration(
-                    color: const Color(0xff010035),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: LineIcon.heart(
-                      size: 18,
+      Expanded(
+        flex: 1,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          margin: EdgeInsets.only(top: 7),
+          width: MediaQuery.of(context).size.width,
+          // height: MediaQuery.of(context).size.height,
+          height: 402,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: Container(
+                        margin: EdgeInsets.only(top: 28, left: 30),
+                        child: Text(
+                          "Galaxy Note 20 Ultra",
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xff010035)),
+                        ),
+                      )),
+                  Container(
+                    height: 37,
+                    width: 37,
+                    margin: EdgeInsets.only(right: 37, top: 28),
+                    decoration: BoxDecoration(
+                      color: const Color(0xff010035),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    color: Colors.white,
-                    tooltip: "Likes",
-                    onPressed: () {},
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      icon: LineIcon.heart(
+                        size: 18,
+                      ),
+                      color: Colors.white,
+                      tooltip: "Likes",
+                      onPressed: () {},
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Text("Giờ chưa làm TabBar được nên để đó. Ahihi!!!"),
-                ),
-              ],
-            ),
-            Expanded(
-                child: SizedBox(
-              height: 20,
-            )),
-            Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 30),
-                  child: Text(
-                    "Select color and capacity",
-                    style:
-                        TextStyle(fontSize: 16, color: const Color(0xff010035)),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Text("Giờ chưa làm TabBar được nên để đó. Ahihi!!!"),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  height: 60,
-                ),
-                Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(left: 35),
-                        height: 34,
-                        width: 34,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff772D03),
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                        child: IconButton(
-                          icon: LineIcon.check(),
-                          color: Colors.white,
-                          iconSize: 19,
-                          onPressed: () {},
-                        )),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(left: 18),
-                        height: 34,
-                        width: 34,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff010035),
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                        child: IconButton(
-                          icon: LineIcon.check(),
-                          color: const Color(0xff010035),
-                          iconSize: 19,
-                          onPressed: () {},
-                        )),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(left: 58),
-                        height: 30,
-                        width: 71,
-                        decoration: BoxDecoration(
-                          color: const Color(0xffFF6E4E),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: TextButton(
-                          child: Text(
-                            "128 GB",
-                            style: TextStyle(color: Colors.white),
+                ],
+              ),
+              Expanded(
+                  child: SizedBox(
+                height: 20,
+              )),
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 30),
+                    child: Text(
+                      "Select color and capacity",
+                      style: TextStyle(
+                          fontSize: 16, color: const Color(0xff010035)),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    height: 60,
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(left: 35),
+                          height: 34,
+                          width: 34,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff772D03),
+                            borderRadius: BorderRadius.circular(40),
                           ),
-                          onPressed: () {},
-                        )),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(left: 18),
-                        height: 30,
-                        width: 71,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: TextButton(
-                          child: Text(
-                            "256 GB",
-                            style: TextStyle(color: const Color(0xff8D8D8D)),
+                          child: IconButton(
+                            icon: LineIcon.check(),
+                            color: Colors.white,
+                            iconSize: 19,
+                            onPressed: () {},
+                          )),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(left: 18),
+                          height: 34,
+                          width: 34,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff010035),
+                            borderRadius: BorderRadius.circular(40),
                           ),
-                          onPressed: () {},
+                          child: IconButton(
+                            icon: LineIcon.check(),
+                            color: const Color(0xff010035),
+                            iconSize: 19,
+                            onPressed: () {},
+                          )),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(left: 58),
+                          height: 30,
+                          width: 71,
+                          decoration: BoxDecoration(
+                            color: const Color(0xffFF6E4E),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: TextButton(
+                            child: Text(
+                              "128 GB",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: () {},
+                          )),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(left: 18),
+                          height: 30,
+                          width: 71,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: TextButton(
+                            child: Text(
+                              "256 GB",
+                              style: TextStyle(color: const Color(0xff8D8D8D)),
+                            ),
+                            onPressed: () {},
+                          )),
+                    ],
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20, top: 10),
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    // height: 40,
+                    width: 355,
+                    child: TextButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xffFF6E4E)),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              margin:
+                                  EdgeInsets.only(left: 20, top: 5, bottom: 5),
+                              child: Text(
+                                "Add to Cart",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(right: 20),
+                              child: Text(
+                                "1.500.000",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
+                          ],
                         )),
-                  ],
-                )
-              ],
-            ),
-          ],
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       )
     ],

@@ -1,3 +1,4 @@
+import 'package:app_ecommerce/homepage/components/productDetail.dart';
 import 'package:app_ecommerce/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,6 +82,9 @@ class ProductItem extends StatelessWidget {
         //  Utilities.data.add(product);
         // Navigator.pushNamed(context, ProductPage.routeName,
         //     arguments: ProductDetailsArguments(product: product));
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => ProductDetail()),
+        );
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,6 +98,8 @@ class ProductItem extends StatelessWidget {
                 color: Colors.white,
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Stack(children: [
                     Container(
@@ -108,12 +114,9 @@ class ProductItem extends StatelessWidget {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment(1.2, -1.2),
-                      child: Image.asset(
-                        "assets/favo1.png",
-                        fit: BoxFit.fill,
-                      ),
+                    Image.asset(
+                      "assets/favo1.png",
+                      fit: BoxFit.fill,
                     ),
                   ]),
                   Row(

@@ -14,47 +14,50 @@ class _CartpageState extends State<Cartpage> {
     // return Expanded(
     //   child: ListView(children: [topNav(context), myCart(context)]),
     // );
-    return Column(
-      children: [
-        topNav(context),
-        Row(
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 40),
-              child: Text(
-                "My Cart",
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xff010035),
+    //
+    return Scaffold(
+      body: Column(
+        children: [
+          topNav(context),
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 40),
+                child: Text(
+                  "My Cart",
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xff010035),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 50),
-                  padding: EdgeInsets.only(top: 40),
-                  decoration: BoxDecoration(
-                    color: const Color(0xff010035),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(40),
-                        topLeft: Radius.circular(40)),
+            ],
+          ),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 50),
+                    padding: EdgeInsets.only(top: 40),
+                    decoration: BoxDecoration(
+                      color: const Color(0xff010035),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(40),
+                          topLeft: Radius.circular(40)),
+                    ),
+                    height: 480,
+                    width: MediaQuery.of(context).size.width,
+                    // color: Colors.green,
+                    child: _myListView(context),
                   ),
-                  height: 480,
-                  width: MediaQuery.of(context).size.width,
-                  // color: Colors.green,
-                  child: _myListView(context),
-                ),
-              ],
-            )
-          ],
-        ),
-      ],
+                ],
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -81,7 +84,9 @@ Widget topNav(BuildContext context) {
           ),
           color: Colors.white,
           tooltip: "Back",
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       Expanded(
