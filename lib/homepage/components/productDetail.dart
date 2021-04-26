@@ -190,12 +190,7 @@ Widget _productInfo(BuildContext context) {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Text("Giờ chưa làm TabBar được nên để đó. Ahihi!!!"),
-                  ),
-                ],
+                children: [],
               ),
               Expanded(
                   child: SizedBox(

@@ -1,6 +1,5 @@
 import 'package:app_ecommerce/homepage/cartPage.dart';
 import 'package:app_ecommerce/homepage/components/fragment/home_fragment.dart';
-import 'package:app_ecommerce/homepage/components/productDetail.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';

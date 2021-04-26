@@ -6,7 +6,7 @@ class Cart extends StatefulWidget {
 }
 
 class Data {
-  Map fetched_data = {
+  Map fetchedData = {
     "data": [
       {"id": 111, "name": "abc"},
       {"id": 222, "name": "pqr"},
@@ -18,7 +18,7 @@ class Data {
 //function to fetch the data
 
   Data() {
-    _data = fetched_data["data"];
+    _data = fetchedData["data"];
   }
 
   int getId(int index) {
