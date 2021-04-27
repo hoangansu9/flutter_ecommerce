@@ -137,7 +137,7 @@ Widget _sliderProductDetail(BuildContext context) {
     ],
   );
 }
-
+///// here !!!!!!!!!!!! //////////
 Widget _productInfo(BuildContext context) {
   return Row(
     children: [
@@ -188,6 +188,88 @@ Widget _productInfo(BuildContext context) {
                   ),
                 ],
               ),
+               //// Here Now ////
+              Flexible(
+                child: DefaultTabController(
+                  length: 3, /// số lượng
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        constraints: BoxConstraints.expand(height: 50),
+                        child: TabBar(
+                            tabs: [
+                              Tab(child: Container(
+                                alignment: Alignment.center,
+                                constraints: BoxConstraints.expand(),
+                                child: Text("Shop",style: TextStyle(color: Color.fromRGBO(80, 80, 80, 80),fontSize: 22.0),),
+                              ),),
+                              Tab(child: Container(
+                                alignment: Alignment.center,
+                                constraints: BoxConstraints.expand(),
+                                child: Text("Details",style: TextStyle(color: Color.fromRGBO(80, 80, 80, 80),fontSize: 22.0),),
+                              ),),
+                              Tab(child: Container(
+                                alignment: Alignment.center,
+                                constraints: BoxConstraints.expand(),
+                                child: Text("Features",style: TextStyle(color: Color.fromRGBO(80, 80, 80, 80),fontSize: 22.0),),
+                              ),),
+                            ],
+                            ///chỉnh hiệu ứng chuyển đổi ///
+                            // indicator: ShapeDecoration (
+                            //     shape: UnderlineInputBorder (
+                            //         borderSide: BorderSide(
+                            //             color: Colors.transparent,
+                            //             width: 0,
+                            //             style: BorderStyle.solid
+                            //         )
+                            //     ),
+                            //     gradient: LinearGradient(colors: [Color(0xff0081ff), Color(0xff01ff80)])
+                            // )
+                          ///chỉnh hiệu ứng chuyển đổi ///
+                        ),
+                      ),
+                      Expanded(
+                        child: TabBarView(  /// nội dung từng tabbar ứng với thứ tự
+                            children: [
+                              Container(
+                                child: Text("Shop dt an "),
+                              ),
+                              Container(
+                                child: Text("deatial An"),
+                              ),
+                              Container(
+                                child: Text("Future An"),
+                              ),
+                            ]),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+
+              /// này sử dụng thư viện  contained_tab_bar_view: 0.7.1
+
+              // Expanded(
+              //   child: Container(
+              //     padding: const EdgeInsets.all(8.0),
+              //     color: Colors.blue,
+              //
+              //     child: ContainedTabBarView(
+              //       tabs: [
+              //         Text('First'),
+              //         Text('Second')
+              //       ],
+              //       views: [
+              //         Container(color: Colors.red),
+              //         Container(color: Colors.green)
+              //       ],
+              //       onChange: (index) => print(index),
+              //     ),
+              //   ),
+              // ),
+              /// này sử dụng thư viện  contained_tab_bar_view: 0.7.1
+
+              //// here Now ///
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [],
@@ -335,3 +417,4 @@ Widget _productInfo(BuildContext context) {
     ],
   );
 }
+//////// here !!!!!!!! /////
