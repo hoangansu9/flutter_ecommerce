@@ -14,7 +14,7 @@ class _CartpageState extends State<Cartpage> {
     // return Expanded(
     //   child: ListView(children: [topNav(context), myCart(context)]),
     // );
-    //
+
     return Scaffold(
       body: Column(
         children: [
@@ -47,7 +47,7 @@ class _CartpageState extends State<Cartpage> {
                           topRight: Radius.circular(40),
                           topLeft: Radius.circular(40)),
                     ),
-                    height: 480,
+                    height: MediaQuery.of(context).size.height - 197,
                     width: MediaQuery.of(context).size.width,
                     // color: Colors.green,
                     child: _myListView(context),
