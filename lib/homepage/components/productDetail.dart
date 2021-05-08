@@ -137,6 +137,7 @@ Widget _sliderProductDetail(BuildContext context) {
     ],
   );
 }
+
 ///// here !!!!!!!!!!!! //////////
 Widget _productInfo(BuildContext context) {
   return Row(
@@ -146,12 +147,13 @@ Widget _productInfo(BuildContext context) {
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(40), topLeft: Radius.circular(40)),
           ),
           margin: EdgeInsets.only(top: 7),
           width: MediaQuery.of(context).size.width,
-          // height: MediaQuery.of(context).size.height,
-          height: 402,
+          height: MediaQuery.of(context).size.height - 357,
+          // height: 402,
           child: Column(
             children: [
               Row(
@@ -188,52 +190,81 @@ Widget _productInfo(BuildContext context) {
                   ),
                 ],
               ),
-               //// Here Now ////
+              //// Here Now ////
               Flexible(
                 child: DefaultTabController(
-                  length: 3, /// số lượng
+                  length: 3,
+
+                  /// số lượng
                   child: Column(
                     children: <Widget>[
                       Container(
                         constraints: BoxConstraints.expand(height: 50),
                         child: TabBar(
-                            tabs: [
-                              Tab(child: Container(
+                          tabs: [
+                            Tab(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Shop",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(80, 80, 80, 80),
+                                      fontSize: 22.0),
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Container(
                                 alignment: Alignment.center,
                                 constraints: BoxConstraints.expand(),
-                                child: Text("Shop",style: TextStyle(color: Color.fromRGBO(80, 80, 80, 80),fontSize: 22.0),),
-                              ),),
-                              Tab(child: Container(
+                                child: Text(
+                                  "Details",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(80, 80, 80, 80),
+                                      fontSize: 22.0),
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Container(
                                 alignment: Alignment.center,
                                 constraints: BoxConstraints.expand(),
-                                child: Text("Details",style: TextStyle(color: Color.fromRGBO(80, 80, 80, 80),fontSize: 22.0),),
-                              ),),
-                              Tab(child: Container(
-                                alignment: Alignment.center,
-                                constraints: BoxConstraints.expand(),
-                                child: Text("Features",style: TextStyle(color: Color.fromRGBO(80, 80, 80, 80),fontSize: 22.0),),
-                              ),),
-                            ],
-                            ///chỉnh hiệu ứng chuyển đổi ///
-                            // indicator: ShapeDecoration (
-                            //     shape: UnderlineInputBorder (
-                            //         borderSide: BorderSide(
-                            //             color: Colors.transparent,
-                            //             width: 0,
-                            //             style: BorderStyle.solid
-                            //         )
-                            //     ),
-                            //     gradient: LinearGradient(colors: [Color(0xff0081ff), Color(0xff01ff80)])
-                            // )
+                                child: Text(
+                                  "Features",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(80, 80, 80, 80),
+                                      fontSize: 22.0),
+                                ),
+                              ),
+                            ),
+                          ],
+
+                          ///chỉnh hiệu ứng chuyển đổi ///
+                          // indicator: ShapeDecoration (
+                          //     shape: UnderlineInputBorder (
+                          //         borderSide: BorderSide(
+                          //             color: Colors.transparent,
+                          //             width: 0,
+                          //             style: BorderStyle.solid
+                          //         )
+                          //     ),
+                          //     gradient: LinearGradient(colors: [Color(0xff0081ff), Color(0xff01ff80)])
+                          // )
                           ///chỉnh hiệu ứng chuyển đổi ///
                         ),
                       ),
                       Expanded(
-                        child: TabBarView(  /// nội dung từng tabbar ứng với thứ tự
+                        child: TabBarView(
+
+                            /// nội dung từng tabbar ứng với thứ tự
                             children: [
                               Container(
-                                child: Text("Shop dt an "),
-                              ),
+                                  child: Column(
+                                children: [
+                                  Text("helo\lo"),
+                                  Text("hihihi"),
+                                ],
+                              )),
                               Container(
                                 child: Text("deatial An"),
                               ),
@@ -270,14 +301,7 @@ Widget _productInfo(BuildContext context) {
               /// này sử dụng thư viện  contained_tab_bar_view: 0.7.1
 
               //// here Now ///
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [],
-              ),
-              Expanded(
-                  child: SizedBox(
-                height: 20,
-              )),
+
               Row(
                 children: [
                   Container(
