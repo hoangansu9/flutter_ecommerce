@@ -11,10 +11,6 @@ class Cartpage extends StatefulWidget {
 class _CartpageState extends State<Cartpage> {
   @override
   Widget build(BuildContext context) {
-    // return Expanded(
-    //   child: ListView(children: [topNav(context), myCart(context)]),
-    // );
-
     return Scaffold(
       body: Column(
         children: [

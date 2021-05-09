@@ -1,7 +1,7 @@
 import 'package:app_ecommerce/homepage/components/productDetail.dart';
 import 'package:app_ecommerce/model/product.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ProductPopular extends StatelessWidget {
@@ -141,10 +141,12 @@ class ProductItem extends StatelessWidget {
                           margin: EdgeInsets.only(left: 21),
                           child: Text(
                             product.title.toString(),
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: 10,
-                                color: const Color(0xff010035),
-                                fontWeight: FontWeight.w400),
+                              fontSize: 12,
+                              color: const Color(0xff010035),
+                              fontWeight: FontWeight.w400,
+                            ),
                           )),
                     ],
                   )

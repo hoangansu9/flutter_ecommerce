@@ -34,6 +34,9 @@ dependencies:
   line_icons: ^2.0.0
   badges: ^1.1.1
   material_dialogs: ^1.0.0
+  rating_bar: ^0.2.0
+  sqflite: ^2.0.0+3
+  path_provider: ^2.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -70,6 +73,7 @@ flutter:
     - iphone12.png
     - assets/
     - assets/images/
+    - assets/foods/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

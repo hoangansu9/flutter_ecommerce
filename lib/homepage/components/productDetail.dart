@@ -1,7 +1,9 @@
+import 'package:app_ecommerce/homepage/cartPage.dart';
 import 'package:app_ecommerce/model/product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
+import 'package:rating_bar/rating_bar.dart';
 
 class ProductDetail extends StatefulWidget {
   // int selectIndex = 2;
@@ -14,13 +16,6 @@ class ProductDetail extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
-    // return Column(
-    //   children: [
-    //     _topNav(context),
-    //     _sliderProductDetail(context),
-    //     _productInfo(context)
-    //   ],
-    // );
     return Scaffold(
       body: Column(
         children: [
@@ -88,8 +83,15 @@ Widget _topNav(BuildContext context) {
             size: 20,
           ),
           color: Colors.white,
-          tooltip: "Nơi giao hàng",
-          onPressed: () {},
+          tooltip: "Giỏ hàng",
+          onPressed: () {
+            Navigator.push(
+              context,
+              new MaterialPageRoute(
+                builder: (context) => new Cartpage(),
+              ),
+            );
+          },
         ),
       ),
     ],
@@ -190,7 +192,27 @@ Widget _productInfo(BuildContext context) {
                   ),
                 ],
               ),
+              ///////
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 40),
+                    child: RatingBar.readOnly(
+                      initialRating: 3.5,
+                      isHalfAllowed: true,
+                      halfFilledIcon: Icons.star_half,
+                      filledColor: Colors.yellow,
+                      filledIcon: Icons.star,
+                      emptyIcon: Icons.star_border,
+                      size: 20,
+                    ),
+                  )
+                ],
+              ),
               //// Here Now ////
+              SizedBox(
+                height: 30,
+              ),
               Flexible(
                 child: DefaultTabController(
                   length: 3,
@@ -200,7 +222,11 @@ Widget _productInfo(BuildContext context) {
                     children: <Widget>[
                       Container(
                         constraints: BoxConstraints.expand(height: 50),
+                        padding: const EdgeInsets.only(left: 27, right: 27),
                         child: TabBar(
+                          unselectedLabelColor: Color(0xffff00a8),
+                          indicatorColor: Color(0xffFF6E4E),
+                          labelColor: Color(0xff010035),
                           tabs: [
                             Tab(
                               child: Container(
@@ -209,7 +235,7 @@ Widget _productInfo(BuildContext context) {
                                   "Shop",
                                   style: TextStyle(
                                       color: Color.fromRGBO(80, 80, 80, 80),
-                                      fontSize: 22.0),
+                                      fontSize: 20.0),
                                 ),
                               ),
                             ),
@@ -221,7 +247,7 @@ Widget _productInfo(BuildContext context) {
                                   "Details",
                                   style: TextStyle(
                                       color: Color.fromRGBO(80, 80, 80, 80),
-                                      fontSize: 22.0),
+                                      fontSize: 20.0),
                                 ),
                               ),
                             ),
@@ -233,24 +259,11 @@ Widget _productInfo(BuildContext context) {
                                   "Features",
                                   style: TextStyle(
                                       color: Color.fromRGBO(80, 80, 80, 80),
-                                      fontSize: 22.0),
+                                      fontSize: 20.0),
                                 ),
                               ),
                             ),
                           ],
-
-                          ///chỉnh hiệu ứng chuyển đổi ///
-                          // indicator: ShapeDecoration (
-                          //     shape: UnderlineInputBorder (
-                          //         borderSide: BorderSide(
-                          //             color: Colors.transparent,
-                          //             width: 0,
-                          //             style: BorderStyle.solid
-                          //         )
-                          //     ),
-                          //     gradient: LinearGradient(colors: [Color(0xff0081ff), Color(0xff01ff80)])
-                          // )
-                          ///chỉnh hiệu ứng chuyển đổi ///
                         ),
                       ),
                       Expanded(
@@ -261,15 +274,92 @@ Widget _productInfo(BuildContext context) {
                               Container(
                                   child: Column(
                                 children: [
-                                  Text("helo\lo"),
-                                  Text("hihihi"),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(bottom: 5),
+                                            height: 30,
+                                            width: 30,
+                                            child: Image.asset(
+                                                'assets/component.png'),
+                                          ),
+                                          Text(
+                                            'Exynox',
+                                            style: TextStyle(
+                                                color: Color(0xffB7B7B7)),
+                                          )
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(bottom: 5),
+                                            height: 30,
+                                            width: 30,
+                                            child: Image.asset(
+                                                'assets/camera.png'),
+                                          ),
+                                          Text(
+                                            '108 + 12 mp',
+                                            style: TextStyle(
+                                                color: Color(0xffB7B7B7)),
+                                          )
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(bottom: 5),
+                                            height: 30,
+                                            width: 30,
+                                            child:
+                                                Image.asset('assets/ram.png'),
+                                          ),
+                                          Text(
+                                            '8 GB',
+                                            style: TextStyle(
+                                                color: Color(0xffB7B7B7)),
+                                          )
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(bottom: 5),
+                                            height: 30,
+                                            width: 30,
+                                            child: Image.asset(
+                                                'assets/memory.png'),
+                                          ),
+                                          Text(
+                                            '256 GB',
+                                            style: TextStyle(
+                                                color: Color(0xffB7B7B7)),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  )
                                 ],
                               )),
                               Container(
-                                child: Text("deatial An"),
+                                margin: EdgeInsets.only(left: 20, right: 20),
+                                child: Text(
+                                  "deatial Ansaddddddddddddddddddddddddddddddddddddddddddddddd sad asdsa dsad sa dsad asdsad sad sa dsa dsa dsad",
+                                ),
                               ),
                               Container(
-                                child: Text("Future An"),
+                                margin: EdgeInsets.only(left: 20, right: 20),
+                                child: Text(
+                                  "deatial Ansaddddddddddddddddddddddddddddddddddddddddddddddd sad asdsa dsad sa dsad asdsad sad sa dsa dsa dsad",
+                                ),
                               ),
                             ]),
                       )
@@ -277,31 +367,6 @@ Widget _productInfo(BuildContext context) {
                   ),
                 ),
               ),
-
-              /// này sử dụng thư viện  contained_tab_bar_view: 0.7.1
-
-              // Expanded(
-              //   child: Container(
-              //     padding: const EdgeInsets.all(8.0),
-              //     color: Colors.blue,
-              //
-              //     child: ContainedTabBarView(
-              //       tabs: [
-              //         Text('First'),
-              //         Text('Second')
-              //       ],
-              //       views: [
-              //         Container(color: Colors.red),
-              //         Container(color: Colors.green)
-              //       ],
-              //       onChange: (index) => print(index),
-              //     ),
-              //   ),
-              // ),
-              /// này sử dụng thư viện  contained_tab_bar_view: 0.7.1
-
-              //// here Now ///
-
               Row(
                 children: [
                   Container(
@@ -441,4 +506,3 @@ Widget _productInfo(BuildContext context) {
     ],
   );
 }
-//////// here !!!!!!!! /////
