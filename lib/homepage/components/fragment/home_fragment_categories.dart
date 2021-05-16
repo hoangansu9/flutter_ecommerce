@@ -3,11 +3,13 @@ import 'package:app_ecommerce/model/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../model/categories.dart';
+import '../../../utli/database_helper.dart';
+
 class CategoriesStore extends StatelessWidget {
+  final DBHelper db = new DBHelper();
   @override
   Widget build(BuildContext context) {
-    final categories = Categories.init();
-
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
@@ -92,26 +94,36 @@ class CategoriesStore extends StatelessWidget {
               margin: const EdgeInsets.only(top: 0),
               width: MediaQuery.of(context).size.width,
               height: 94,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    // return CategoriesItem(category: categories[index]);
-                    return Column(
-                      children: [
-                        Container(
-                          height: 71,
-                          child: CategoriesItem(category: categories[index]),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 4.0, bottom: 2),
-                          height: 16,
-                          child: Text(categories[index].title,
-                              style: TextStyle(color: const Color(0xff010035))),
-                        )
-                      ],
-                    );
-                  }),
+              child: new FutureBuilder<List<Category>>(
+                future: db.getAllCategory(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) print(snapshot.error);
+                  var data = snapshot.data;
+                  return snapshot.hasData
+                      ? ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: data.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                Container(
+                                  height: 71,
+                                  child: CategoriesItem(category: data[index]),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      top: 4.0, bottom: 2),
+                                  height: 16,
+                                  child: Text(data[index].categoryName,
+                                      style: TextStyle(
+                                          color: const Color(0xff010035))),
+                                )
+                              ],
+                            );
+                          })
+                      : new Center(child: new CircularProgressIndicator());
+                },
+              ),
             ),
           ],
         ),
@@ -122,7 +134,7 @@ class CategoriesStore extends StatelessWidget {
 
 // ignore: must_be_immutable
 class CategoriesItem extends StatelessWidget {
-  Categories category;
+  Category category;
   CategoriesItem({this.category}); // nó bị chỗ này k chiuy3n6 dc
   @override
   Widget build(BuildContext context) {
@@ -131,7 +143,7 @@ class CategoriesItem extends StatelessWidget {
       height: 94,
       padding: EdgeInsets.all(5),
       child: Image.asset(
-        category.image,
+        category.categoryImageUrl,
         color: const Color(0xFFB3B3C3),
       ),
       decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),

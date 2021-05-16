@@ -1,103 +1,107 @@
-// import 'dart:async';
+import 'package:app_ecommerce/utli/constant.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
-// import 'package:app_ecommerce/model/categories.dart';
-// import 'package:path/path.dart';
-// import 'package:sqflite/sqflite.dart';
+import '../model/categories.dart';
 
-// class DatabaseHelper {
-//   static final DatabaseHelper _instance = new DatabaseHelper.internal();
+class DBHelper {
+  static final DBHelper _dbHelper = new DBHelper.internal();
 
-//   factory DatabaseHelper() => _instance;
+  factory DBHelper() => _dbHelper;
 
-//   final String tableNote = 'noteTable';
-//   final String columnId = 'id';
-//   final String columnTitle = 'title';
-//   final String columnDescription = 'image';
+  static Database _db;
 
-//   static Database _db;
+  Future<Database> get db async {
+    if (_db != null) {
+      return _db;
+    } else {
+      _db = await initDB();
+      return _db;
+    }
+  }
 
-//   DatabaseHelper.internal();
+  DBHelper.internal();
 
-//   Future<Database> get db async {
-//     if (_db != null) {
-//       return _db;
-//     }
-//     _db = await initDb();
+  initDB() async {
+// Get a location using getDatabasesPath
+    var databasesPath = await getDatabasesPath();
+    String path = join(databasesPath, 'data.db');
 
-//     return _db;
-//   }
+    var theDB = await openDatabase(path, version: 1,
+        onCreate: (Database db, int version) async {
+      await db.execute(Constant.CREATE_CATEGORY);
+      await db.execute(Constant.CREATE_PRODUCT);
 
-//   initDb() async {
-//     String databasesPath = await getDatabasesPath();
-//     String path = join(databasesPath, 'notes.db');
+      await initData();
+    });
+    return theDB;
+  }
 
-// //    await deleteDatabase(path); // just for testing
+  initData() async {
+    List<Category> data = [
+      Category("Phones", "assets/phone.png"),
+      Category("Computers", "assets/computer.png"),
+      Category("Heals", "assets/health.png"),
+      Category("Books", "assets/books.png"),
+      Category("Stationery ", "assets/books.png"),
+    ];
+    var idTMP = 0;
+    data.forEach((element) {
+      element.setCategoryID(idTMP);
+      addNewCategory(element);
+      idTMP++;
+    });
+  }
 
-//     var db = await openDatabase(path, version: 1, onCreate: _onCreate);
-//     return db;
-//   }
+  Future<int> addNewCategory(Category category) async {
+    var database = await db;
+    database.transaction((txn) async {
+      int result =
+          await database.insert(Constant.TABLE_CATEGORY, category.toMap());
+      return result;
+    });
+  }
 
-//   void _onCreate(Database db, int newVersion) async {
-//     await db.execute(
-//         'CREATE TABLE $tableNote($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnDescription TEXT)');
-//   }
+  Future<List<Category>> getAllCategory() async {
+    var database = await db;
+    List<Map> list;
+    list = await database.rawQuery("SELECT * FROM " + Constant.TABLE_CATEGORY);
+    // ignore: deprecated_member_use
+    List<Category> categories = new List();
+    list.forEach((element) {
+      var category = new Category(element[Constant.CATEGORY_NAME],
+          element[Constant.CATEGORY_IMAGE_URL]);
+      category.setCategoryID(element[Constant.CATEGORY_ID]);
+      categories.add(category);
+    });
 
-//   Future<int> saveNote(Categories note) async {
-//     var dbClient = await db;
-//     var result = await dbClient.insert(tableNote, note.toMap());
-// //    var result = await dbClient.rawInsert(
-// //        'INSERT INTO $tableNote ($columnTitle, $columnDescription) VALUES (\'${note.title}\', \'${note.description}\')');
+    return categories;
+  }
 
-//     return result;
-//   }
+  Future<int> deleteAllCategory() async {
+    var database = await db;
 
-//   Future<List> getAllNotes() async {
-//     var dbClient = await db;
-//     var result = await dbClient
-//         .query(tableNote, columns: [columnId, columnTitle, columnDescription]);
-// //    var result = await dbClient.rawQuery('SELECT * FROM $tableNote');
+    int result =
+        await database.rawDelete("DELETE FROM " + Constant.TABLE_CATEGORY);
+    return result;
+  }
 
-//     return result.toList();
-//   }
+  Future<int> deleteCategory(Category category) async {
+    var database = await db;
 
-//   Future<int> getCount() async {
-//     var dbClient = await db;
-//     return Sqflite.firstIntValue(
-//         await dbClient.rawQuery('SELECT COUNT(*) FROM $tableNote'));
-//   }
+    int result = await database.rawDelete(
+        "DELETE FROM " + Constant.TABLE_CATEGORY + " WHERE id = ?",
+        [category.id]);
+    return result;
+  }
 
-//   Future<Categories> getNote(int id) async {
-//     var dbClient = await db;
-//     List<Map> result = await dbClient.query(tableNote,
-//         columns: [columnId, columnTitle, columnDescription],
-//         where: '$columnId = ?',
-//         whereArgs: [id]);
-// //    var result = await dbClient.rawQuery('SELECT * FROM $tableNote WHERE $columnId = $id');
+  Future<bool> updateCategory(Category category) async {
+    var database = await db;
 
-//     if (result.length > 0) {
-//       return new Categories.fromMap(result.first);
-//     }
+    int result = await database.update(
+        Constant.TABLE_CATEGORY, category.toMap(),
+        where: "id = ?", whereArgs: <int>[category.id]);
 
-//     return null;
-//   }
-
-//   Future<int> deleteNote(int id) async {
-//     var dbClient = await db;
-//     return await dbClient
-//         .delete(tableNote, where: '$columnId = ?', whereArgs: [id]);
-// //    return await dbClient.rawDelete('DELETE FROM $tableNote WHERE $columnId = $id');
-//   }
-
-//   Future<int> updateNote(Categories note) async {
-//     var dbClient = await db;
-//     return await dbClient.update(tableNote, note.toMap(),
-//         where: "$columnId = ?", whereArgs: [note.id]);
-// //    return await dbClient.rawUpdate(
-// //        'UPDATE $tableNote SET $columnTitle = \'${note.title}\', $columnDescription = \'${note.description}\' WHERE $columnId = ${note.id}');
-//   }
-
-//   Future close() async {
-//     var dbClient = await db;
-//     return dbClient.close();
-//   }
-// }
+    return result > 0 ? true : false;
+  }
+}

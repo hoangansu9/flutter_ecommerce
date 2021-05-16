@@ -1,99 +1,48 @@
-class Products {
+import 'dart:ffi';
+
+import 'package:app_ecommerce/utli/constant.dart';
+
+class Product {
   int id;
-  String title;
-  String description;
-  String image;
-  double price;
+  String _productName;
+  String _productImageUrl;
+  Float _productPrice;
+  bool _isDiscount;
+  Float _discountPrice;
+  String _productDescription;
 
-  Products({this.id, this.title, this.description, this.image, this.price});
+  Product(this.id, this._productName, this._productImageUrl, this._productPrice,
+      this._isDiscount, this._discountPrice, this._productDescription);
+  Product.map(dynamic object) {
+    this._productName = object[Constant.PRODUCT_ID];
+    this._productImageUrl = object[Constant.PRODUCT_IMAGE_URL];
+    this._productPrice = object[Constant.PRODUCT_PRICE];
+    this._isDiscount = object[Constant.PRODUCT_IS_DISCOUNT];
+    this._discountPrice = object[Constant.PRODUCT_DISCOUNT_PRICE];
+    this._productDescription = object[Constant.PRODUCT_DESCRIPTION];
+  }
 
-  static List<Products> init() {
-    List<Products> data = [
-      Products(
-          id: 1,
-          title: "Bread",
-          description:
-              "Founded as a bakery brand in Singapore in 2000 and listed on the SGX in 2003. It has since expanded to more than 1,000 retail stores spread across 17 markets. Its brand portfolio comprises BreadTalk, Toast Box, Food Republic, Food Junction, Din Tai Fung, Bread Society, Thye Moh Chan, The Icing Room, Sō and Nayuki in Singapore. Din Tai Fung, Song Fa Bak Kut Teh, Wu Pao Chun and Nayuki are franchised brands",
-          image: "assets/images/galaxy21.jpg",
-          price: 8.0),
-      Products(
-          id: 2,
-          title: "Coffee",
-          description:
-              "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffea species. When coffee berries turn from green to bright red in color – indicating ripeness – they are picked, processed, and dried.[2] Dried coffee seeds (referred to as \"beans\") are roasted to varying degrees, depending on the desired flavor. Roasted beans are ground and then brewed with near-boiling water to produce the beverage known as coffee.",
-          image: "assets/images/galaxy21plus.jpg",
-          price: 8.0),
-      Products(
-          id: 3,
-          title: "Tea",
-          description:
-              "Tea is an aromatic beverage commonly prepared by pouring hot or boiling water over cured or fresh leaves of the Camellia sinensis, an evergreen shrub native to East Asia.[3] After water, it is the most widely consumed drink in the world.[4] There are many different types of tea; some, like Darjeeling and Chinese greens, have a cooling, slightly bitter, and astringent flavour,[5] while others have vastly different profiles that include sweet, nutty, floral, or grassy notes. Tea has a stimulating effect in humans primarily by its caffeine conten",
-          image: "assets/images/galaxys10.jfif",
-          price: 8.0),
-      Products(
-          id: 4,
-          title: "Bread",
-          description:
-              "Tea is an aromatic beverage commonly prepared by pouring hot or boiling water over cured or fresh leaves of the Camellia sinensis, an evergreen shrub native to East Asia.[3] After water, it is the most widely consumed drink in the world.[4] There are many different types of tea; some, like Darjeeling and Chinese greens, have a cooling, slightly bitter, and astringent flavour,[5] while others have vastly different profiles that include sweet, nutty, floral, or grassy notes. Tea has a stimulating effect in humans primarily by its caffeine conten",
-          image: "assets/foods/ic_black_coffee.png",
-          price: 8.0),
-      Products(
-          id: 5,
-          title: "Coffee",
-          description:
-              "Founded as a bakery brand in Singapore in 2000 and listed on the SGX in 2003. It has since expanded to more than 1,000 retail stores spread across 17 markets. Its brand portfolio comprises BreadTalk, Toast Box, Food Republic, Food Junction, Din Tai Fung, Bread Society, Thye Moh Chan, The Icing Room, Sō and Nayuki in Singapore. Din Tai Fung, Song Fa Bak Kut Teh, Wu Pao Chun and Nayuki are franchised brands",
-          image: "assets/foods/ic_black_coffee.png",
-          price: 8.0),
-      Products(
-          id: 6,
-          title: "milk & Tea",
-          description:
-              "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffea species. When coffee berries turn from green to bright red in color – indicating ripeness – they are picked, processed, and dried.[2] Dried coffee seeds (referred to as \"beans\") are roasted to varying degrees, depending on the desired flavor. Roasted beans are ground and then brewed with near-boiling water to produce the beverage known as coffee.",
-          image: "assets/foods/ic_black_coffee.png",
-          price: 8.0),
-      Products(
-          id: 1,
-          title: "Bread",
-          description:
-              "Founded as a bakery brand in Singapore in 2000 and listed on the SGX in 2003. It has since expanded to more than 1,000 retail stores spread across 17 markets. Its brand portfolio comprises BreadTalk, Toast Box, Food Republic, Food Junction, Din Tai Fung, Bread Society, Thye Moh Chan, The Icing Room, Sō and Nayuki in Singapore. Din Tai Fung, Song Fa Bak Kut Teh, Wu Pao Chun and Nayuki are franchised brands",
-          image: "assets/foods/ic_black_coffee.png",
-          price: 8.0),
-      Products(
-          id: 2,
-          title: "Coffee",
-          description:
-              "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffea species. When coffee berries turn from green to bright red in color – indicating ripeness – they are picked, processed, and dried.[2] Dried coffee seeds (referred to as \"beans\") are roasted to varying degrees, depending on the desired flavor. Roasted beans are ground and then brewed with near-boiling water to produce the beverage known as coffee.",
-          image: "assets/foods/ic_black_coffee.png",
-          price: 8.0),
-      Products(
-          id: 3,
-          title: "Tea",
-          description:
-              "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffea species. When coffee berries turn from green to bright red in color – indicating ripeness – they are picked, processed, and dried.[2] Dried coffee seeds (referred to as \"beans\") are roasted to varying degrees, depending on the desired flavor. Roasted beans are ground and then brewed with near-boiling water to produce the beverage known as coffee.",
-          image: "assets/foods/ic_black_coffee.png",
-          price: 8.0),
-      Products(
-          id: 4,
-          title: "Bread",
-          description:
-              "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffea species. When coffee berries turn from green to bright red in color – indicating ripeness – they are picked, processed, and dried.[2] Dried coffee seeds (referred to as \"beans\") are roasted to varying degrees, depending on the desired flavor. Roasted beans are ground and then brewed with near-boiling water to produce the beverage known as coffee.",
-          image: "assets/foods/ic_black_coffee.png",
-          price: 8.0),
-      Products(
-          id: 5,
-          title: "Coffee",
-          description:
-              "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffea species. When coffee berries turn from green to bright red in color – indicating ripeness – they are picked, processed, and dried.[2] Dried coffee seeds (referred to as \"beans\") are roasted to varying degrees, depending on the desired flavor. Roasted beans are ground and then brewed with near-boiling water to produce the beverage known as coffee.",
-          image: "assets/foods/ic_black_coffee.png",
-          price: 8.0),
-      Products(
-          id: 6,
-          title: "milk & Tea",
-          description:
-              "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffea species. When coffee berries turn from green to bright red in color – indicating ripeness – they are picked, processed, and dried.[2] Dried coffee seeds (referred to as \"beans\") are roasted to varying degrees, depending on the desired flavor. Roasted beans are ground and then brewed with near-boiling water to produce the beverage known as coffee.",
-          image: "assets/foods/ic_black_coffee.png",
-          price: 8.0),
-    ];
-    return data;
+  String get productName => _productName;
+  String get productImageUrl => _productImageUrl;
+  Float get productPrice => _productPrice;
+  bool get isDiscount => _isDiscount;
+  Float get discountPrice => _discountPrice;
+  String get productDescription => _productDescription;
+
+  Map<String, dynamic> toMap() {
+    var map = new Map<String, dynamic>();
+
+    map[Constant.PRODUCT_ID] = _productName;
+    map[Constant.PRODUCT_IMAGE_URL] = _productImageUrl;
+    map[Constant.PRODUCT_PRICE] = _productPrice;
+    map[Constant.PRODUCT_IS_DISCOUNT] = _isDiscount;
+    map[Constant.PRODUCT_DISCOUNT_PRICE] = _discountPrice;
+    map[Constant.PRODUCT_DESCRIPTION] = _productDescription;
+
+    return map;
+  }
+
+  void setProductID(int id) {
+    this.id = id;
   }
 }
