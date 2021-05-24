@@ -1,13 +1,33 @@
 import 'package:app_ecommerce/homepage/components/fragment/home_filter_fragment.dart';
 import 'package:app_ecommerce/model/categories.dart';
-import 'package:flutter/material.dart';
+import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class CategoriesStore extends StatelessWidget {
+class CategoriesStore extends StatefulWidget {
+  @override
+  _CategoriesStoreState createState() => _CategoriesStoreState();
+}
+
+class _CategoriesStoreState extends State<CategoriesStore> {
+  List items = [];
+  DatabaseHelper db = new DatabaseHelper();
+
+  @override
+  void initState() {
+    super.initState();
+
+    db.getAllCates().then((notes) {
+      setState(() {
+        notes.forEach((note) {
+          items.add(Categories.fromMap(note));
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final categories = Categories.init();
-
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
@@ -94,19 +114,19 @@ class CategoriesStore extends StatelessWidget {
               height: 94,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
+                  itemCount: items.length,
                   itemBuilder: (context, index) {
                     // return CategoriesItem(category: categories[index]);
                     return Column(
                       children: [
                         Container(
                           height: 71,
-                          child: CategoriesItem(category: categories[index]),
+                          child: CategoriesItem(category: items[index]),
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: 4.0, bottom: 2),
                           height: 16,
-                          child: Text(categories[index].title,
+                          child: Text(items[index].title,
                               style: TextStyle(color: const Color(0xff010035))),
                         )
                       ],

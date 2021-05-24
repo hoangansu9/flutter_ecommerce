@@ -1,7 +1,7 @@
 import 'package:app_ecommerce/model/hotsales.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class HomeHotSales extends StatelessWidget {
   @override
@@ -24,7 +24,7 @@ class HomeHotSales extends StatelessWidget {
                           height: 32.0,
                           margin: const EdgeInsets.only(left: 15),
                           child: Text(
-                            "Hot Seller",
+                            "Hot Sale",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 25,
@@ -52,12 +52,12 @@ class HomeHotSales extends StatelessWidget {
             ),
             Container(
                 width: MediaQuery.of(context).size.width,
-                height: 132,
+                height: 180,
                 child: CarouselSlider(
                   options: CarouselOptions(
-                    height: 400,
-                    aspectRatio: 16 / 9,
-                    viewportFraction: 0.8,
+                    height: 420,
+                    aspectRatio: 16 / 7,
+                    viewportFraction: 1,
                     initialPage: 0,
                     enableInfiniteScroll: true,
                     reverse: false,
