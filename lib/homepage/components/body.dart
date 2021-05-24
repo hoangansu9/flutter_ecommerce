@@ -1,7 +1,6 @@
 import 'package:app_ecommerce/homepage/cartPage.dart';
 import 'package:app_ecommerce/homepage/components/fragment/home_fragment.dart';
-import 'package:app_ecommerce/manager/category_manager.dart';
-import 'package:app_ecommerce/model/categories.dart';
+import 'package:app_ecommerce/profile.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,14 +15,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   int _selectedIndex = 0;
   int badge = 2;
-  List<Widget> screen = [
-    HomeDetail(),
-   ,
-    Cartpage()
-  ];
+  List<Widget> screen = [HomeDetail(), Cartpage(), Profile(), Profile()];
 
   @override
   Widget build(BuildContext context) {
@@ -89,13 +83,7 @@ class _BodyState extends State<Body> {
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => Cartpage()),
                       );
-                    } 
-                     if (index == 1) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => CategoryManager()),
-                      );
-                    } 
-                    else {
+                    } else {
                       setState(() {
                         _selectedIndex = index;
                       });

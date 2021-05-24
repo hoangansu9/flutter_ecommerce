@@ -9,7 +9,7 @@ class DatabaseHelper {
 
   factory DatabaseHelper() => _instance;
 
-  final String tableNote = 'noteTable';
+  final String tableCategory = 'cateTable';
   final String columnId = 'id';
   final String columnTitle = 'title';
   final String columnImage = 'image';
@@ -29,7 +29,7 @@ class DatabaseHelper {
 
   initDb() async {
     String databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'notes.db');
+    String path = join(databasesPath, 'ecommerce.db');
 
 //    await deleteDatabase(path); // just for testing
 
@@ -39,12 +39,27 @@ class DatabaseHelper {
 
   void _onCreate(Database db, int newVersion) async {
     await db.execute(
-        'CREATE TABLE $tableNote($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnImage TEXT)');
+        'CREATE TABLE $tableCategory($columnId INTEGER PRIMARY KEY, $columnTitle TEXT, $columnImage TEXT)');
+
+    await db.rawInsert(
+        'INSERT INTO $tableCategory($columnTitle, $columnImage) VALUES ("Phones", "assets/phone.png")');
+
+    await db.rawInsert(
+        'INSERT INTO $tableCategory($columnTitle, $columnImage) VALUES ("Computers", "assets/computer.png")');
+
+    await db.rawInsert(
+        'INSERT INTO $tableCategory($columnTitle, $columnImage) VALUES ("Heals","assets/health.png")');
+
+    await db.rawInsert(
+        'INSERT INTO $tableCategory($columnTitle, $columnImage) VALUES ("Books","assets/books.png")');
+
+    await db.rawInsert(
+        'INSERT INTO $tableCategory($columnTitle, $columnImage) VALUES ("Stationery" ,"assets/books.png")');
   }
 
   Future<int> saveCate(Categories cate) async {
     var dbClient = await db;
-    var result = await dbClient.insert(tableNote, cate.toMap());
+    var result = await dbClient.insert(tableCategory, cate.toMap());
 //    var result = await dbClient.rawInsert(
 //        'INSERT INTO $tableNote ($columnTitle, $columnDescription) VALUES (\'${note.title}\', \'${note.description}\')');
 
@@ -54,7 +69,7 @@ class DatabaseHelper {
   Future<List> getAllCates() async {
     var dbClient = await db;
     var result = await dbClient
-        .query(tableNote, columns: [columnId, columnTitle, columnImage]);
+        .query(tableCategory, columns: [columnId, columnTitle, columnImage]);
 //    var result = await dbClient.rawQuery('SELECT * FROM $tableNote');
 
     return result.toList();
@@ -63,12 +78,12 @@ class DatabaseHelper {
   Future<int> getCount() async {
     var dbClient = await db;
     return Sqflite.firstIntValue(
-        await dbClient.rawQuery('SELECT COUNT(*) FROM $tableNote'));
+        await dbClient.rawQuery('SELECT COUNT(*) FROM $tableCategory'));
   }
 
   Future<Categories> getCate(int id) async {
     var dbClient = await db;
-    List<Map> result = await dbClient.query(tableNote,
+    List<Map> result = await dbClient.query(tableCategory,
         columns: [columnId, columnTitle, columnImage],
         where: '$columnId = ?',
         whereArgs: [id]);
@@ -84,13 +99,13 @@ class DatabaseHelper {
   Future<int> deleteCate(int id) async {
     var dbClient = await db;
     return await dbClient
-        .delete(tableNote, where: '$columnId = ?', whereArgs: [id]);
+        .delete(tableCategory, where: '$columnId = ?', whereArgs: [id]);
 //    return await dbClient.rawDelete('DELETE FROM $tableNote WHERE $columnId = $id');
   }
 
   Future<int> updateCate(Categories note) async {
     var dbClient = await db;
-    return await dbClient.update(tableNote, note.toMap(),
+    return await dbClient.update(tableCategory, note.toMap(),
         where: "$columnId = ?", whereArgs: [note.id]);
 //    return await dbClient.rawUpdate(
 //        'UPDATE $tableNote SET $columnTitle = \'${note.title}\', $columnDescription = \'${note.description}\' WHERE $columnId = ${note.id}');
