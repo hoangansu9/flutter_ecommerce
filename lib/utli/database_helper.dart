@@ -26,6 +26,7 @@ class DatabaseHelper {
   final String columnDetails = 'details';
   final String columnFeatures = 'features';
   final String columnPriceProduct = 'price';
+  final String columnCategoryId = 'categoryId';
   //
   static Database _db;
 
@@ -72,10 +73,10 @@ class DatabaseHelper {
 
     ///product
     await db.execute(
-        'CREATE TABLE $tableProduct($columnIdProduct INTEGER PRIMARY KEY, $columnNameProduct TEXT,'
-        '$columnImageProduct TEXT, $columnChipProduct TEXT, $columnCamera TEXT,$columnRam TEXT,'
-        '$columnStorage TEXT, $columnDetails TEXT, $columnFeatures TEXT, $columnPriceProduct DOUBLE '
-        'PRODUCT_CATEGORY_ID TEXT, FOREIGN KEY (PRODUCT_CATEGORY_ID) REFERENCES $tableCategory ($columnIdCate))');
+        'CREATE TABLE $tableProduct($columnIdProduct INTEGER PRIMARY KEY, $columnNameProduct TEXT,' +
+            '$columnImageProduct TEXT, $columnChipProduct TEXT, $columnCamera TEXT,$columnRam TEXT,' +
+            '$columnStorage TEXT, $columnDetails TEXT, $columnFeatures TEXT, $columnPriceProduct FLOAT, ' +
+            '$columnCategoryId INTEGER, CONSTRAINT fk_category_product   FOREIGN KEY ($columnCategoryId) REFERENCES $tableCategory ($columnIdCate))');
   }
 
 //#region category
@@ -142,7 +143,8 @@ class DatabaseHelper {
       columnStorage,
       columnDetails,
       columnFeatures,
-      columnPriceProduct
+      columnPriceProduct,
+      columnCategoryId
     ]);
     return result.toList();
   }
@@ -166,7 +168,8 @@ class DatabaseHelper {
           columnStorage,
           columnDetails,
           columnFeatures,
-          columnPriceProduct
+          columnPriceProduct,
+          columnCategoryId
         ],
         where: '$columnIdProduct = ?',
         whereArgs: [id]);

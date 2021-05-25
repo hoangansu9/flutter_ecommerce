@@ -127,7 +127,7 @@ class Products {
   }
 
   int get id => _id;
-  String get title => _name;
+  String get name => _name;
   String get image => _image;
   String get chip => _chip;
   String get camera => _camera;

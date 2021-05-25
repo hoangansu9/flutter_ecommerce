@@ -30,7 +30,7 @@ class _ProductScreenState extends State<ProductScreen> {
   void initState() {
     super.initState();
 
-    _nameController = new TextEditingController(text: widget.product.title);
+    _nameController = new TextEditingController(text: widget.product.name);
     _imageController = new TextEditingController(text: widget.product.image);
     _chipController = new TextEditingController(text: widget.product.chip);
     _cameraController = new TextEditingController(text: widget.product.camera);
@@ -50,17 +50,15 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        flexibleSpace: Container(
-          child: _topNav(context),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          flexibleSpace: Container(
+            child: _topNav(context),
+          ),
         ),
-      ),
-      body: Container(
-        margin: EdgeInsets.all(15.0),
-        alignment: Alignment.center,
-        child: Column(
-          children: <Widget>[
+        body: ListView(
+          padding: EdgeInsets.all(15),
+          children: [
             TextField(
               controller: _nameController,
               decoration: InputDecoration(labelText: 'Name'),
@@ -152,9 +150,7 @@ class _ProductScreenState extends State<ProductScreen> {
               },
             ),
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
 

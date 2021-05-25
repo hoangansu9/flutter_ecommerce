@@ -158,7 +158,7 @@ class ProductItem extends StatelessWidget {
                           padding: EdgeInsets.all(2),
                           margin: EdgeInsets.only(left: 21),
                           child: Text(
-                            product.title.toString(),
+                            product.name.toString(),
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 12,

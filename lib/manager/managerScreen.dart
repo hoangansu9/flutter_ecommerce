@@ -17,7 +17,7 @@ class ManagerScreen extends StatefulWidget {
 class _ManagerScreenState extends State<ManagerScreen> {
   List items = [];
   DatabaseHelper db = new DatabaseHelper();
-
+  int count = 0;
   @override
   void initState() {
     super.initState();
@@ -29,6 +29,12 @@ class _ManagerScreenState extends State<ManagerScreen> {
         });
       });
     });
+    db.getCountProduct().then((products) {
+      setState(() {
+        count = products;
+      });
+    });
+    print('The value of the input is: $count');
   }
 
   final bool checkbox = true;
@@ -116,13 +122,13 @@ class _ManagerScreenState extends State<ManagerScreen> {
                         color: Colors.green,
                       ),
                     ),
-                    subtitle: Text(
-                      '${items[position].image}',
-                      style: new TextStyle(
-                          fontSize: 18.0,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.deepOrangeAccent),
-                    ),
+                    // subtitle: Text(
+                    //   '${items[position].image}',
+                    //   style: new TextStyle(
+                    //       fontSize: 18.0,
+                    //       fontStyle: FontStyle.italic,
+                    //       color: Colors.deepOrangeAccent),
+                    // ),
                     onTap: () => _navigateToProduct(context, items[position]),
                   ),
                 ],
