@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Products {
   int _id;
   String _name;
@@ -10,10 +8,20 @@ class Products {
   String _storage;
   String _details;
   String _features;
-  Float _price;
+  double _price;
+  int _categoryId;
 
-  Products(this._name, this._image, this._chip, this._camera, this._ram,
-      this._storage, this._details, this._features, this._price);
+  Products(
+      this._name,
+      this._image,
+      this._chip,
+      this._camera,
+      this._ram,
+      this._storage,
+      this._details,
+      this._features,
+      this._price,
+      this._categoryId);
 
   // static List<Products> init() {
   //   List<Products> data = [
@@ -115,6 +123,7 @@ class Products {
     this._details = obj['details'];
     this._features = obj['features'];
     this._price = obj['price'];
+    this._categoryId = obj['categoryId'];
   }
 
   int get id => _id;
@@ -126,7 +135,8 @@ class Products {
   String get storage => _storage;
   String get details => _details;
   String get features => _features;
-  Float get price => _price;
+  double get price => _price;
+  int get categoryId => _categoryId;
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
@@ -142,6 +152,7 @@ class Products {
     map['details'] = _details;
     map['features'] = _features;
     map['price'] = _price;
+    map['categoryId'] = _categoryId;
     return map;
   }
 
@@ -155,5 +166,6 @@ class Products {
     this._details = map['details'];
     this._features = map['features'];
     this._price = map['price'];
+    this._categoryId = map['categoryId'];
   }
 }

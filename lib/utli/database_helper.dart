@@ -126,31 +126,52 @@ class DatabaseHelper {
 //#region product
   Future<int> saveProduct(Products products) async {
     var dbClient = await db;
-    var result = await dbClient.insert(tableCategory, products.toMap());
+    var result = await dbClient.insert(tableProduct, products.toMap());
     return result;
   }
 
   Future<List> getAllProduct() async {
     var dbClient = await db;
-    var result = await dbClient.query(tableCategory,
-        columns: [columnIdCate, columnTitleCate, columnImageCate]);
+    var result = await dbClient.query(tableCategory, columns: [
+      columnIdProduct,
+      columnNameProduct,
+      columnImageProduct,
+      columnChipProduct,
+      columnCamera,
+      columnRam,
+      columnStorage,
+      columnDetails,
+      columnFeatures,
+      columnPriceProduct
+    ]);
     return result.toList();
   }
 
   Future<int> getCountProduct() async {
     var dbClient = await db;
     return Sqflite.firstIntValue(
-        await dbClient.rawQuery('SELECT COUNT(*) FROM $tableCategory'));
+        await dbClient.rawQuery('SELECT COUNT(*) FROM $tableProduct'));
   }
 
-  Future<Categories> getProduct(int id) async {
+  Future<Products> getProduct(int id) async {
     var dbClient = await db;
-    List<Map> result = await dbClient.query(tableCategory,
-        columns: [columnIdCate, columnTitleCate, columnImageCate],
-        where: '$columnIdCate = ?',
+    List<Map> result = await dbClient.query(tableProduct,
+        columns: [
+          columnIdProduct,
+          columnNameProduct,
+          columnImageProduct,
+          columnChipProduct,
+          columnCamera,
+          columnRam,
+          columnStorage,
+          columnDetails,
+          columnFeatures,
+          columnPriceProduct
+        ],
+        where: '$columnIdProduct = ?',
         whereArgs: [id]);
     if (result.length > 0) {
-      return new Categories.fromMap(result.first);
+      return new Products.fromMap(result.first);
     }
     return null;
   }
@@ -158,13 +179,13 @@ class DatabaseHelper {
   Future<int> deleteProduct(int id) async {
     var dbClient = await db;
     return await dbClient
-        .delete(tableCategory, where: '$columnIdCate = ?', whereArgs: [id]);
+        .delete(tableCategory, where: '$columnIdProduct = ?', whereArgs: [id]);
   }
 
-  Future<int> updateProdcut(Categories note) async {
+  Future<int> updateProduct(Products product) async {
     var dbClient = await db;
-    return await dbClient.update(tableCategory, note.toMap(),
-        where: "$columnIdCate = ?", whereArgs: [note.id]);
+    return await dbClient.update(tableProduct, product.toMap(),
+        where: "$columnIdProduct = ?", whereArgs: [product.id]);
   }
 //#endregion
 

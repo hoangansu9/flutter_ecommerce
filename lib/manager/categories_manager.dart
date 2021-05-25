@@ -50,7 +50,7 @@ class _CategoryManagerState extends State {
                         children: [
                           IconButton(
                               icon: const Icon(Icons.remove_circle_outlined),
-                              onPressed: () => _deleteNote(
+                              onPressed: () => _deleteCate(
                                   context, items[position], position)),
                         ],
                       ),
@@ -68,7 +68,7 @@ class _CategoryManagerState extends State {
                             fontStyle: FontStyle.italic,
                             color: Colors.deepOrangeAccent),
                       ),
-                      onTap: () => _navigateToNote(context, items[position]),
+                      onTap: () => _navigateToCate(context, items[position]),
                     ),
                   ],
                 );
@@ -76,13 +76,13 @@ class _CategoryManagerState extends State {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: () => _createNewNote(context),
+          onPressed: () => _createNewCate(context),
         ),
       ),
     );
   }
 
-  void _deleteNote(BuildContext context, Categories cate, int position) async {
+  void _deleteCate(BuildContext context, Categories cate, int position) async {
     db.deleteCate(cate.id).then((cates) {
       setState(() {
         items.removeAt(position);
@@ -90,7 +90,7 @@ class _CategoryManagerState extends State {
     });
   }
 
-  void _navigateToNote(BuildContext context, Categories note) async {
+  void _navigateToCate(BuildContext context, Categories note) async {
     String result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CategoryScreen(note)),
@@ -108,7 +108,7 @@ class _CategoryManagerState extends State {
     }
   }
 
-  void _createNewNote(BuildContext context) async {
+  void _createNewCate(BuildContext context) async {
     String result = await Navigator.push(
       context,
       MaterialPageRoute(

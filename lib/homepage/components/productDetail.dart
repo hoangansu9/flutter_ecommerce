@@ -1,5 +1,4 @@
 import 'package:app_ecommerce/homepage/cartPage.dart';
-import 'package:app_ecommerce/model/product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';

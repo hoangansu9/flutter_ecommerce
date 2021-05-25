@@ -2,6 +2,7 @@ import 'package:app_ecommerce/manager/managerScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class Profile extends StatefulWidget {
   int selectIndex = 3;
   static String routeName = "/profile_screen";
