@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_ecommerce/model/categories.dart';
+import 'package:app_ecommerce/model/product.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -72,16 +73,15 @@ class DatabaseHelper {
     ///product
     await db.execute(
         'CREATE TABLE $tableProduct($columnIdProduct INTEGER PRIMARY KEY, $columnNameProduct TEXT,'
-        '+ $columnImageProduct TEXT, $columnChipProduct TEXT, $columnCamera TEXT,$columnRam TEXT,+'
-        '+ $columnStorage TEXT, $columnDetails TEXT, $columnFeatures TEXT, $columnPriceProduct TEXT)');
+        '$columnImageProduct TEXT, $columnChipProduct TEXT, $columnCamera TEXT,$columnRam TEXT,'
+        '$columnStorage TEXT, $columnDetails TEXT, $columnFeatures TEXT, $columnPriceProduct DOUBLE '
+        'PRODUCT_CATEGORY_ID TEXT, FOREIGN KEY (PRODUCT_CATEGORY_ID) REFERENCES $tableCategory ($columnIdCate))');
   }
 
+//#region category
   Future<int> saveCate(Categories cate) async {
     var dbClient = await db;
     var result = await dbClient.insert(tableCategory, cate.toMap());
-//    var result = await dbClient.rawInsert(
-//        'INSERT INTO $tableNote ($columnTitle, $columnDescription) VALUES (\'${note.title}\', \'${note.description}\')');
-
     return result;
   }
 
@@ -89,8 +89,6 @@ class DatabaseHelper {
     var dbClient = await db;
     var result = await dbClient.query(tableCategory,
         columns: [columnIdCate, columnTitleCate, columnImageCate]);
-//    var result = await dbClient.rawQuery('SELECT * FROM $tableNote');
-
     return result.toList();
   }
 
@@ -106,12 +104,9 @@ class DatabaseHelper {
         columns: [columnIdCate, columnTitleCate, columnImageCate],
         where: '$columnIdCate = ?',
         whereArgs: [id]);
-//    var result = await dbClient.rawQuery('SELECT * FROM $tableNote WHERE $columnId = $id');
-
     if (result.length > 0) {
       return new Categories.fromMap(result.first);
     }
-
     return null;
   }
 
@@ -119,16 +114,59 @@ class DatabaseHelper {
     var dbClient = await db;
     return await dbClient
         .delete(tableCategory, where: '$columnIdCate = ?', whereArgs: [id]);
-//    return await dbClient.rawDelete('DELETE FROM $tableNote WHERE $columnId = $id');
   }
 
   Future<int> updateCate(Categories note) async {
     var dbClient = await db;
     return await dbClient.update(tableCategory, note.toMap(),
         where: "$columnIdCate = ?", whereArgs: [note.id]);
-//    return await dbClient.rawUpdate(
-//        'UPDATE $tableNote SET $columnTitle = \'${note.title}\', $columnDescription = \'${note.description}\' WHERE $columnId = ${note.id}');
   }
+//#endregion
+
+//#region product
+  Future<int> saveProduct(Products products) async {
+    var dbClient = await db;
+    var result = await dbClient.insert(tableCategory, products.toMap());
+    return result;
+  }
+
+  Future<List> getAllProduct() async {
+    var dbClient = await db;
+    var result = await dbClient.query(tableCategory,
+        columns: [columnIdCate, columnTitleCate, columnImageCate]);
+    return result.toList();
+  }
+
+  Future<int> getCountProduct() async {
+    var dbClient = await db;
+    return Sqflite.firstIntValue(
+        await dbClient.rawQuery('SELECT COUNT(*) FROM $tableCategory'));
+  }
+
+  Future<Categories> getProduct(int id) async {
+    var dbClient = await db;
+    List<Map> result = await dbClient.query(tableCategory,
+        columns: [columnIdCate, columnTitleCate, columnImageCate],
+        where: '$columnIdCate = ?',
+        whereArgs: [id]);
+    if (result.length > 0) {
+      return new Categories.fromMap(result.first);
+    }
+    return null;
+  }
+
+  Future<int> deleteProduct(int id) async {
+    var dbClient = await db;
+    return await dbClient
+        .delete(tableCategory, where: '$columnIdCate = ?', whereArgs: [id]);
+  }
+
+  Future<int> updateProdcut(Categories note) async {
+    var dbClient = await db;
+    return await dbClient.update(tableCategory, note.toMap(),
+        where: "$columnIdCate = ?", whereArgs: [note.id]);
+  }
+//#endregion
 
   Future close() async {
     var dbClient = await db;

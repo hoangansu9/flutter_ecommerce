@@ -99,7 +99,7 @@ Widget _topNav(BuildContext context) {
 }
 
 Widget _sliderProductDetail(BuildContext context) {
-  final hotSale = Products.init();
+  final hotSale = [];//////////////////////////////
   return Row(
     children: [
       Container(

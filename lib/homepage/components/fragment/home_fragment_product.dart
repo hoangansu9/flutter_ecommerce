@@ -1,15 +1,33 @@
 import 'package:app_ecommerce/homepage/components/productDetail.dart';
 import 'package:app_ecommerce/model/product.dart';
+import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class ProductPopular extends StatelessWidget {
-  final products = Products.init();
+class ProductPopular extends StatefulWidget {
+  @override
+  _ProductPopularState createState() => _ProductPopularState();
+}
+
+class _ProductPopularState extends State<ProductPopular> {
+  List items = [];
+  DatabaseHelper db = new DatabaseHelper();
 
   @override
+  void initState() {
+    super.initState();
+
+    db.getAllProduct().then((products) {
+      setState(() {
+        products.forEach((product) {
+          items.add(Products.fromMap(product));
+        });
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
-    //  var productsAPI = Utilities().getProducts();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -50,7 +68,7 @@ class ProductPopular extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   primary: false,
-                  itemCount: products.length,
+                  itemCount: items.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 0,
@@ -58,7 +76,7 @@ class ProductPopular extends StatelessWidget {
                       childAspectRatio: 0.76),
                   itemBuilder: (context, index) {
                     return ProductItem(
-                      product: products[index],
+                      product: items[index],
                     );
                   })),
         ],
