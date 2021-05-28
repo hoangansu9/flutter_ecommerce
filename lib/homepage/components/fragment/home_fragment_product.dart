@@ -133,10 +133,6 @@ class ProductItem extends StatelessWidget {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    Image.asset(
-                      "assets/favo1.png",
-                      fit: BoxFit.fill,
-                    ),
                   ]),
                   Row(
                     children: [
@@ -157,7 +153,7 @@ class ProductItem extends StatelessWidget {
                       // Expanded(child: Text(product.title)),
                       Container(
                           padding: EdgeInsets.all(2),
-                          margin: EdgeInsets.only(left: 21),
+                          margin: EdgeInsets.only(left: 21, bottom: 10),
                           child: Text(
                             product.name.toString(),
                             overflow: TextOverflow.ellipsis,

@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:rating_bar/rating_bar.dart';
 
+// ignore: must_be_immutable
 class BodyDetailProduct extends StatelessWidget {
   Products product;
   BodyDetailProduct({this.product});
@@ -53,7 +54,7 @@ class BodyDetailProduct extends StatelessWidget {
                       ),
                       child: IconButton(
                         padding: EdgeInsets.zero,
-                        icon: LineIcon.heart(
+                        icon: LineIcon.heartAlt(
                           size: 18,
                         ),
                         color: Colors.white,
@@ -63,7 +64,6 @@ class BodyDetailProduct extends StatelessWidget {
                     ),
                   ],
                 ),
-                ///////
                 Row(
                   children: [
                     Container(
@@ -80,7 +80,6 @@ class BodyDetailProduct extends StatelessWidget {
                     )
                   ],
                 ),
-                //// Here Now ////
                 SizedBox(
                   height: 30,
                 ),

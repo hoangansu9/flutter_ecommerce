@@ -1,5 +1,7 @@
 import 'package:app_ecommerce/cartPage/cartPage.dart';
+import 'package:app_ecommerce/favoritesPage/FavoritesPage.dart';
 import 'package:app_ecommerce/homepage/components/fragment/home_fragment.dart';
+import 'package:app_ecommerce/model/carts.dart';
 import 'package:app_ecommerce/profile.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,12 +17,14 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  int total;
   int _selectedIndex = 0;
   int badge = 2;
-  List<Widget> screen = [HomeDetail(), CartPage(), Profile(), Profile()];
+  List<Widget> screen = [HomeDetail(), FavoritesPage(), CartPage(), Profile()];
 
   @override
   Widget build(BuildContext context) {
+    total = Cart.cart.length;
     return Scaffold(
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -67,6 +71,18 @@ class _BodyState extends State<Body> {
                     icon: LineIcons.shoppingBag,
                     iconColor: Colors.white,
                     text: 'Cart',
+                    leading: _selectedIndex == 2 || total == 0
+                        ? null
+                        : Badge(
+                            badgeColor: Colors.red.shade100,
+                            elevation: 0,
+                            position: BadgePosition.topEnd(top: -12, end: -12),
+                            badgeContent: Text(
+                              total.toString(),
+                              style: TextStyle(color: Colors.red.shade900),
+                            ),
+                            child: Icon(LineIcons.shoppingBag,
+                                size: 20, color: Colors.white)),
                   ),
                   GButton(
                     icon: LineIcons.user,
