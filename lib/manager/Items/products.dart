@@ -1,4 +1,4 @@
-import 'package:app_ecommerce/model/product.dart';
+import 'package:app_ecommerce/model/products.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

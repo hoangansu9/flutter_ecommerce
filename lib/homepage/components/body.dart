@@ -1,4 +1,4 @@
-import 'package:app_ecommerce/homepage/cartPage.dart';
+import 'package:app_ecommerce/cartPage/cartPage.dart';
 import 'package:app_ecommerce/homepage/components/fragment/home_fragment.dart';
 import 'package:app_ecommerce/profile.dart';
 import 'package:badges/badges.dart';
@@ -17,7 +17,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   int _selectedIndex = 0;
   int badge = 2;
-  List<Widget> screen = [HomeDetail(), Cartpage(), Profile(), Profile()];
+  List<Widget> screen = [HomeDetail(), CartPage(), Profile(), Profile()];
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class _BodyState extends State<Body> {
                   setState(() {
                     if (index == 2) {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Cartpage()),
+                        MaterialPageRoute(builder: (context) => CartPage()),
                       );
                     } else {
                       setState(() {

@@ -143,7 +143,7 @@ class _CategoriesStoreState extends State<CategoriesStore> {
 // ignore: must_be_immutable
 class CategoriesItem extends StatelessWidget {
   Categories category;
-  CategoriesItem({this.category}); // nó bị chỗ này k chiuy3n6 dc
+  CategoriesItem({this.category});
   @override
   Widget build(BuildContext context) {
     return Container(

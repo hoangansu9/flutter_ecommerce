@@ -1,6 +1,6 @@
 import 'package:app_ecommerce/manager/Items/products.dart';
 import 'package:app_ecommerce/manager/categories_manager.dart';
-import 'package:app_ecommerce/model/product.dart';
+import 'package:app_ecommerce/model/products.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:drawer_component/drawer_component.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,7 +34,6 @@ class _ManagerScreenState extends State<ManagerScreen> {
         count = products;
       });
     });
-    print('The value of the input is: $count');
   }
 
   final bool checkbox = true;

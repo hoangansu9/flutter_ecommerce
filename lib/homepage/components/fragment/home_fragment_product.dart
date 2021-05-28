@@ -1,5 +1,5 @@
-import 'package:app_ecommerce/homepage/components/productDetail.dart';
-import 'package:app_ecommerce/model/product.dart';
+import 'package:app_ecommerce/model/products.dart';
+import 'package:app_ecommerce/productDetail/productDetail.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -96,13 +96,14 @@ class ProductItem extends StatelessWidget {
     if (product.image != null) {}
     return GestureDetector(
       onTap: () {
-        //print(product.id.toString());
-        //  Utilities.data.add(product);
-        Navigator.pushNamed(context, ProductPage.routeName,
-            arguments: ProductDetailsArguments(product: product));
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(builder: (context) => ProductDetail(context)),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetail(product: product),
+          ),
+        );
+        // Navigator.pushNamed(context, ProductDetail.routeName,
+        //     arguments: ProductDetailsArguments(product: product));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,10 +128,10 @@ class ProductItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       height: 160,
-                      // child: Image.asset(
-                      //   product.image,
-                      //   fit: BoxFit.fill,
-                      // ),
+                      child: Image.asset(
+                        product.image,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                     Image.asset(
                       "assets/favo1.png",

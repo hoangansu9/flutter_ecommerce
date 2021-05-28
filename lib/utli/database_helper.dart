@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:app_ecommerce/model/categories.dart';
-import 'package:app_ecommerce/model/product.dart';
+import 'package:app_ecommerce/model/products.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

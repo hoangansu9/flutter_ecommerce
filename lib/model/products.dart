@@ -160,6 +160,7 @@ class Products {
     this._id = map['id'];
     this._name = map['name'];
     this._chip = map['chip'];
+    this._image = map['image'];
     this._camera = map['camera'];
     this._ram = map['ram'];
     this._storage = map['storage'];
