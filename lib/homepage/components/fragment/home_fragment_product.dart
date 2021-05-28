@@ -98,11 +98,11 @@ class ProductItem extends StatelessWidget {
       onTap: () {
         //print(product.id.toString());
         //  Utilities.data.add(product);
-        // Navigator.pushNamed(context, ProductPage.routeName,
-        //     arguments: ProductDetailsArguments(product: product));
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => ProductDetail()),
-        );
+        Navigator.pushNamed(context, ProductPage.routeName,
+            arguments: ProductDetailsArguments(product: product));
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(builder: (context) => ProductDetail(context)),
+        // );
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,10 +127,10 @@ class ProductItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       height: 160,
-                      child: Image.asset(
-                        product.image,
-                        fit: BoxFit.fill,
-                      ),
+                      // child: Image.asset(
+                      //   product.image,
+                      //   fit: BoxFit.fill,
+                      // ),
                     ),
                     Image.asset(
                       "assets/favo1.png",

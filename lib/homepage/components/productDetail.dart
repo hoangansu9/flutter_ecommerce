@@ -5,6 +5,7 @@ import 'package:line_icons/line_icon.dart';
 import 'package:rating_bar/rating_bar.dart';
 
 class ProductDetail extends StatefulWidget {
+  
   // int selectIndex = 2;
   static String routeName = "/product_detail_screen";
 
@@ -13,6 +14,9 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+
+   final ProductDetailsArguments arguments =
+        ModalRoute.of(context).settings.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

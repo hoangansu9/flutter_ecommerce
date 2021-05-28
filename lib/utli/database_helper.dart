@@ -76,7 +76,7 @@ class DatabaseHelper {
         'CREATE TABLE $tableProduct($columnIdProduct INTEGER PRIMARY KEY, $columnNameProduct TEXT,' +
             '$columnImageProduct TEXT, $columnChipProduct TEXT, $columnCamera TEXT,$columnRam TEXT,' +
             '$columnStorage TEXT, $columnDetails TEXT, $columnFeatures TEXT, $columnPriceProduct FLOAT, ' +
-            '$columnCategoryId INTEGER, CONSTRAINT fk_category_product   FOREIGN KEY ($columnCategoryId) REFERENCES $tableCategory ($columnIdCate))');
+            '$columnCategoryId INTEGER, CONSTRAINT fk_category_product FOREIGN KEY ($columnCategoryId) REFERENCES $tableCategory ($columnIdCate))');
   }
 
 //#region category
@@ -133,7 +133,7 @@ class DatabaseHelper {
 
   Future<List> getAllProduct() async {
     var dbClient = await db;
-    var result = await dbClient.query(tableCategory, columns: [
+    var result = await dbClient.query(tableProduct, columns: [
       columnIdProduct,
       columnNameProduct,
       columnImageProduct,
