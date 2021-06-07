@@ -1,5 +1,6 @@
 import 'package:app_ecommerce/model/products.dart';
 import 'package:app_ecommerce/productDetail/productDetail.dart';
+import 'package:app_ecommerce/utli/Utility.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -128,10 +129,11 @@ class ProductItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       height: 160,
-                      child: Image.asset(
-                        product.image,
-                        fit: BoxFit.fill,
-                      ),
+                      // child: Image.asset(
+                      //   product.image,
+                      //   fit: BoxFit.fill,
+                      // ),
+                      child: Utility.imageFromBase64String(product.image),
                     ),
                   ]),
                   Row(

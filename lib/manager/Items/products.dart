@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:app_ecommerce/model/products.dart';
+import 'package:app_ecommerce/utli/Utility.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProductScreen extends StatefulWidget {
   final Products product;
@@ -14,7 +18,13 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   DatabaseHelper db = new DatabaseHelper();
+  pickImageFromGallery() {
+    ImagePicker.pickImage(source: ImageSource.gallery).then((imgFile) {
+      String imgString = Utility.base64String(imgFile.readAsBytesSync());
+    });
+  }
 
+  Future<File> imageFile;
   TextEditingController _nameController;
   TextEditingController _imageController;
   TextEditingController _chipController;
@@ -25,7 +35,7 @@ class _ProductScreenState extends State<ProductScreen> {
   TextEditingController _featuresController;
   TextEditingController _priceController;
   TextEditingController _categoryIdController;
-
+  final String imgPicker = '';
   @override
   void initState() {
     super.initState();
@@ -64,6 +74,16 @@ class _ProductScreenState extends State<ProductScreen> {
               decoration: InputDecoration(labelText: 'Name'),
             ),
             Padding(padding: new EdgeInsets.all(5.0)),
+            IconButton(
+                icon: Icon(Icons.image),
+                onPressed: () {
+                  ImagePicker.pickImage(source: ImageSource.gallery)
+                      .then((imgFile) {
+                    String imgString =
+                        Utility.base64String(imgFile.readAsBytesSync());
+                    _imageController.text = imgString;
+                  });
+                }),
             TextField(
               controller: _imageController,
               decoration: InputDecoration(labelText: 'Image'),
@@ -91,7 +111,7 @@ class _ProductScreenState extends State<ProductScreen> {
             Padding(padding: new EdgeInsets.all(5.0)),
             TextField(
               controller: _detailsController,
-              decoration: InputDecoration(labelText: 'Dteails'),
+              decoration: InputDecoration(labelText: 'Details'),
             ),
             Padding(padding: new EdgeInsets.all(5.0)),
             TextField(

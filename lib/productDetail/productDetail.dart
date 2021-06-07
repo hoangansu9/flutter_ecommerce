@@ -1,6 +1,7 @@
 import 'package:app_ecommerce/cartPage/cartPage.dart';
 import 'package:app_ecommerce/model/products.dart';
 import 'package:app_ecommerce/productDetail/components/bodyDetailProduct.dart';
+import 'package:app_ecommerce/utli/Utility.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -41,10 +42,12 @@ class ProductDetail extends StatelessWidget {
                             margin: EdgeInsets.symmetric(horizontal: 2.0),
                             child: ClipRRect(
                               borderRadius: new BorderRadius.circular(10.0),
-                              child: Image(
-                                fit: BoxFit.fill,
-                                image: AssetImage(product.image),
-                              ),
+                              // child: Image(
+                              //   fit: BoxFit.fill,
+                              //   image: AssetImage(product.image),
+                              // ),
+                              child:
+                                  Utility.imageFromBase64String(product.image),
                             ),
                           );
                         },
