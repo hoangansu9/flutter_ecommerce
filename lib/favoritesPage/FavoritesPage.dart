@@ -11,13 +11,13 @@ class FavoritesPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Favorites'),
       ),
-      body: Consumer<Favorites>(
-        builder: (context, value, child) => ListView.builder(
-          itemCount: value.items.length,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          itemBuilder: (context, index) => FavoriteItemTile(value.items[index]),
-        ),
-      ),
+      // body: Consumer<Favorites>(
+      //   builder: (context, value, child) => ListView.builder(
+      //     itemCount: value.items.length,
+      //     padding: const EdgeInsets.symmetric(vertical: 16),
+      //     itemBuilder: (context, index) => FavoriteItemTile(value.items[index]),
+      //   ),
+      // ),
     );
   }
 }
@@ -38,7 +38,7 @@ class FavoriteItemTile extends StatelessWidget {
           backgroundColor: Colors.primaries[product % Colors.primaries.length],
         ),
         title: Text(
-          'Colors $product.id', // chỗ này cậu trỏ thông tin product 
+          'Colors $product.id', // chỗ này cậu trỏ thông tin product
           key: Key('favorites_text_$product'), // id
         ),
         trailing: IconButton(
