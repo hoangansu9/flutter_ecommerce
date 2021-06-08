@@ -1,4 +1,6 @@
+import 'package:app_ecommerce/model/favorites.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FavoritesPage extends StatelessWidget {
   static String routeName = '/favorites_page';
@@ -9,22 +11,22 @@ class FavoritesPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Favorites'),
       ),
-      // body: Consumer<Products>(
-      //   builder: (context, value, child) => ListView.builder(
-      //     itemCount: value.items.length,
-      //     padding: const EdgeInsets.symmetric(vertical: 16),
-      //     itemBuilder: (context, index) => FavoriteItemTile(value.items[index]),
-      //   ),
-      // ),
+      body: Consumer<Favorites>(
+        builder: (context, value, child) => ListView.builder(
+          itemCount: value.items.length,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          itemBuilder: (context, index) => FavoriteItemTile(value.items[index]),
+        ),
+      ),
     );
   }
 }
 
 class FavoriteItemTile extends StatelessWidget {
-  final int itemNo;
+  final int product;
 
   const FavoriteItemTile(
-    this.itemNo,
+    this.product,
   );
 
   @override
@@ -33,17 +35,17 @@ class FavoriteItemTile extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: Colors.primaries[itemNo % Colors.primaries.length],
+          backgroundColor: Colors.primaries[product % Colors.primaries.length],
         ),
         title: Text(
-          'Colors $itemNo',
-          key: Key('favorites_text_$itemNo'),
+          'Colors $product.id', // chỗ này cậu trỏ thông tin product 
+          key: Key('favorites_text_$product'), // id
         ),
         trailing: IconButton(
-          key: Key('remove_icon_$itemNo'),
+          key: Key('remove_icon_$product'),
           icon: Icon(Icons.close),
           onPressed: () {
-            // Provider.of<Favorites>(context, listen: false).remove(itemNo);
+            Provider.of<Favorites>(context, listen: false).remove(product);
             Scaffold.of(context).showSnackBar(
               SnackBar(
                 content: Text('Removed from favorites.'),

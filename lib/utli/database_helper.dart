@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_ecommerce/model/categories.dart';
+import 'package:app_ecommerce/model/order.dart';
 import 'package:app_ecommerce/model/products.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -27,7 +28,14 @@ class DatabaseHelper {
   final String columnFeatures = 'features';
   final String columnPriceProduct = 'price';
   final String columnCategoryId = 'categoryId';
-  //
+  //order
+  final String tableOrder = 'orderTable';
+  final String columnIdOrder = 'id';
+  final String columnNameOrder = 'name';
+  final String columnPhoneOrder = 'phone';
+  final String columnAddressOrder = 'address';
+  final String columnCodeOrder = 'code';
+
   static Database _db;
 
   DatabaseHelper.internal();
@@ -77,6 +85,10 @@ class DatabaseHelper {
             '$columnImageProduct TEXT, $columnChipProduct TEXT, $columnCamera TEXT,$columnRam TEXT,' +
             '$columnStorage TEXT, $columnDetails TEXT, $columnFeatures TEXT, $columnPriceProduct FLOAT, ' +
             '$columnCategoryId INTEGER, CONSTRAINT fk_category_product FOREIGN KEY ($columnCategoryId) REFERENCES $tableCategory ($columnIdCate))');
+
+    ////order
+    await db.execute(
+        'CREATE TABLE $tableOrder($columnIdOrder INTEGER PRIMARY KEY, $columnNameOrder TEXT, $columnPhoneOrder TEXT, $columnAddressOrder TEXT, $columnCodeOrder TEXT)');
   }
 
 //#region category
@@ -189,6 +201,62 @@ class DatabaseHelper {
     var dbClient = await db;
     return await dbClient.update(tableProduct, product.toMap(),
         where: "$columnIdProduct = ?", whereArgs: [product.id]);
+  }
+//#endregion
+
+//#region order
+  Future<int> saveOrder(Order order) async {
+    var dbClient = await db;
+    var result = await dbClient.insert(tableOrder, order.toMap());
+    return result;
+  }
+
+  Future<List> getAllOrder() async {
+    var dbClient = await db;
+    var result = await dbClient.query(tableOrder, columns: [
+      columnIdOrder,
+      columnNameOrder,
+      columnPhoneOrder,
+      columnAddressOrder,
+      columnCodeOrder
+    ]);
+    return result.toList();
+  }
+
+  Future<int> getCountOrder() async {
+    var dbClient = await db;
+    return Sqflite.firstIntValue(
+        await dbClient.rawQuery('SELECT COUNT(*) FROM $tableOrder'));
+  }
+
+  Future<Categories> getOrder(int id) async {
+    var dbClient = await db;
+    List<Map> result = await dbClient.query(tableOrder,
+        columns: [
+          columnIdOrder,
+          columnNameOrder,
+          columnPhoneOrder,
+          columnAddressOrder,
+          columnCodeOrder
+        ],
+        where: '$columnIdOrder = ?',
+        whereArgs: [id]);
+    if (result.length > 0) {
+      return new Categories.fromMap(result.first);
+    }
+    return null;
+  }
+
+  Future<int> deleteOrder(int id) async {
+    var dbClient = await db;
+    return await dbClient
+        .delete(tableOrder, where: '$columnIdOrder = ?', whereArgs: [id]);
+  }
+
+  Future<int> updateOrder(Order order) async {
+    var dbClient = await db;
+    return await dbClient.update(tableOrder, order.toMap(),
+        where: "$columnIdOrder = ?", whereArgs: [order.id]);
   }
 //#endregion
 

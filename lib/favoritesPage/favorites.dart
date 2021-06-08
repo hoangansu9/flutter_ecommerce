@@ -6,13 +6,13 @@ class Favorites extends ChangeNotifier {
 
   List<int> get items => _favoriteItems;
 
-  void add(int itemNo) {
-    _favoriteItems.add(itemNo);
+  void add(int product) {
+    _favoriteItems.add(product);
     notifyListeners();
   }
 
-  void remove(int itemNo) {
-    _favoriteItems.remove(itemNo);
+  void remove(int product) {
+    _favoriteItems.remove(product);
     notifyListeners();
   }
 }

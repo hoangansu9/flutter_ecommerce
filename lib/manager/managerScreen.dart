@@ -1,5 +1,6 @@
 import 'package:app_ecommerce/manager/Items/products.dart';
 import 'package:app_ecommerce/manager/categories_manager.dart';
+import 'package:app_ecommerce/manager/order_manager.dart';
 import 'package:app_ecommerce/model/products.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:drawer_component/drawer_component.dart';
@@ -82,16 +83,16 @@ class _ManagerScreenState extends State<ManagerScreen> {
               dividercolor: Colors.grey,
             ),
             DrawerTile(
-              name: "contect",
+              name: "Order",
+              textSize: 20,
+              textColor: Color(0xff010035),
               textOverflow: TextOverflow.ellipsis,
-              child: CategoryManager(),
-              leading: Icon(Icons.contacts),
-              trailing: Icon(Icons.content_copy),
+              child: OrderManager(),
+              leading: Icon(Icons.category, color: Colors.blueGrey),
               tileSize: 10,
-              tralingSelection: "Icon",
               dividerheight: 5,
               dividerThickness: 1,
-              dividercolor: Colors.black,
+              dividercolor: Colors.grey,
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icon.dart';
+import 'package:provider/provider.dart';
 import 'package:rating_bar/rating_bar.dart';
 
 // ignore: must_be_immutable
@@ -14,6 +15,7 @@ class BodyDetailProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var favoritesList = Provider.of(context);
     return Row(
       children: [
         Expanded(
@@ -52,14 +54,32 @@ class BodyDetailProduct extends StatelessWidget {
                         color: const Color(0xff010035),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
+/////////////////////////////
                       child: IconButton(
                         padding: EdgeInsets.zero,
-                        icon: LineIcon.heartAlt(
-                          size: 18,
-                        ),
+                        // icon: LineIcon.heartAlt(
+                        //   size: 18,
+                        // ),
+                        key: Key('icon_$product'),
+                        icon: favoritesList.items.contains(product)
+                            ? Icon(Icons.favorite)
+                            : Icon(Icons.favorite_border),
                         color: Colors.white,
                         tooltip: "Likes",
-                        onPressed: () {},
+                        onPressed: () {
+                          !favoritesList.items.contains(product)
+                              ? favoritesList.add(product)
+                              : favoritesList.remove(product);
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  favoritesList.items.contains(product)
+                                      ? 'Added to favorites.'
+                                      : 'Removed from favorites.'),
+                              duration: Duration(seconds: 1),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],
