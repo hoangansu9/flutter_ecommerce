@@ -65,21 +65,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - dish.png
-    - dish_2.png
-    - phone.png
-    - bag.png
-    - user.png
-    - health.png
-    - books.png
-    - computer.png
-    - point.png
-    - heart.png
-    - explaned.png
-    - iphone12.png
     - assets/
     - assets/images/
-    - assets/foods/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

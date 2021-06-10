@@ -77,15 +77,15 @@ class DatabaseHelper {
     await db.execute(
         'CREATE TABLE $tableCategory($columnIdCate INTEGER PRIMARY KEY, $columnTitleCate TEXT, $columnImageCate TEXT)');
     await db.rawInsert(
-        'INSERT INTO $tableCategory($columnTitleCate, $columnImageCate) VALUES ("Phones", "assets/phone.png")');
+        'INSERT INTO $tableCategory($columnTitleCate, $columnImageCate) VALUES ("Apple", "assets/images/apple.png")');
     await db.rawInsert(
-        'INSERT INTO $tableCategory($columnTitleCate, $columnImageCate) VALUES ("Computers", "assets/computer.png")');
+        'INSERT INTO $tableCategory($columnTitleCate, $columnImageCate) VALUES ("Samsung", "assets/images/samsung.png")');
     await db.rawInsert(
-        'INSERT INTO $tableCategory($columnTitleCate, $columnImageCate) VALUES ("Heals","assets/health.png")');
+        'INSERT INTO $tableCategory($columnTitleCate, $columnImageCate) VALUES ("Sony","assets/images/sony.png")');
     await db.rawInsert(
-        'INSERT INTO $tableCategory($columnTitleCate, $columnImageCate) VALUES ("Books","assets/books.png")');
+        'INSERT INTO $tableCategory($columnTitleCate, $columnImageCate) VALUES ("Xiaomi","assets/images/xiaomi.png")');
     await db.rawInsert(
-        'INSERT INTO $tableCategory($columnTitleCate, $columnImageCate) VALUES ("Stationery" ,"assets/books.png")');
+        'INSERT INTO $tableCategory($columnTitleCate, $columnImageCate) VALUES ("Huawei" ,"assets/images/huawei.png")');
 
     ///product
     await db.execute(
@@ -172,6 +172,27 @@ class DatabaseHelper {
       columnPriceProduct,
       columnCategoryId
     ]);
+    return result.toList();
+  }
+
+  Future<List> getProductByCate(int idCate) async {
+    var dbClient = await db;
+    var result = await dbClient.query(tableProduct,
+        columns: [
+          columnIdProduct,
+          columnNameProduct,
+          columnImageProduct,
+          columnChipProduct,
+          columnCamera,
+          columnRam,
+          columnStorage,
+          columnDetails,
+          columnFeatures,
+          columnPriceProduct,
+          columnCategoryId
+        ],
+        where: '$columnCategoryId = ?',
+        whereArgs: [idCate]);
     return result.toList();
   }
 
