@@ -2,6 +2,7 @@ import 'package:app_ecommerce/cartPage/cartPage.dart';
 import 'package:app_ecommerce/favoritesPage/FavoritesPage.dart';
 import 'package:app_ecommerce/homepage/components/fragment/home_fragment.dart';
 import 'package:app_ecommerce/model/carts.dart';
+import 'package:app_ecommerce/notifications/Notify.dart';
 import 'package:app_ecommerce/profile.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +21,7 @@ class _BodyState extends State<Body> {
   int total;
   int _selectedIndex = 0;
   int badge = 2;
-  List<Widget> screen = [HomeDetail(), FavoritesPage(), CartPage(), Profile()];
+  List<Widget> screen = [HomeDetail(), Notify(), CartPage(), Profile()];
 
   @override
   Widget build(BuildContext context) {
@@ -51,21 +52,9 @@ class _BodyState extends State<Body> {
                     iconColor: Colors.white,
                   ),
                   GButton(
-                    icon: LineIcons.heart,
+                    icon: LineIcons.bell,
                     iconColor: Colors.white,
-                    text: 'Likes',
-                    leading: _selectedIndex == 1 || badge == 0
-                        ? null
-                        : Badge(
-                            badgeColor: Colors.red.shade100,
-                            elevation: 0,
-                            position: BadgePosition.topEnd(top: -12, end: -12),
-                            badgeContent: Text(
-                              badge.toString(),
-                              style: TextStyle(color: Colors.red.shade900),
-                            ),
-                            child: Icon(LineIcons.heart,
-                                size: 20, color: Colors.white)),
+                    text: 'Notify'
                   ),
                   GButton(
                     icon: LineIcons.shoppingBag,

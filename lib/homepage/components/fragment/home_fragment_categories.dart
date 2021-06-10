@@ -152,7 +152,7 @@ class CategoriesItem extends StatelessWidget {
       padding: EdgeInsets.all(5),
       child: Image.asset(
         category.image,
-        color: const Color(0xFFB3B3C3),
+        // color: const Color(0xFFB3B3C3),
       ),
       decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
     );
