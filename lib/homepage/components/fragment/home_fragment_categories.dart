@@ -1,3 +1,4 @@
+import 'package:app_ecommerce/category/categorypage.dart';
 import 'package:app_ecommerce/homepage/components/fragment/home_filter_fragment.dart';
 import 'package:app_ecommerce/model/categories.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
@@ -146,15 +147,25 @@ class CategoriesItem extends StatelessWidget {
   CategoriesItem({this.category});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 94,
-      height: 94,
-      padding: EdgeInsets.all(5),
-      child: Image.asset(
-        category.image,
-        // color: const Color(0xFFB3B3C3),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CategoryPage(idCate: category.id),
+          ),
+        );
+      },
+      child: Container(
+        width: 94,
+        height: 94,
+        padding: EdgeInsets.all(5),
+        child: Image.asset(
+          category.image,
+          // color: const Color(0xFFB3B3C3),
+        ),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
       ),
-      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
     );
   }
 }

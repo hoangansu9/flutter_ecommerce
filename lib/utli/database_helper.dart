@@ -161,6 +161,27 @@ class DatabaseHelper {
     return result.toList();
   }
 
+  Future<List> getProductByCate(int idCate) async {
+    var dbClient = await db;
+    var result = await dbClient.query(tableProduct,
+        columns: [
+          columnIdProduct,
+          columnNameProduct,
+          columnImageProduct,
+          columnChipProduct,
+          columnCamera,
+          columnRam,
+          columnStorage,
+          columnDetails,
+          columnFeatures,
+          columnPriceProduct,
+          columnCategoryId
+        ],
+        where: '$columnCategoryId = ?',
+        whereArgs: [idCate]);
+    return result.toList();
+  }
+
   Future<int> getCountProduct() async {
     var dbClient = await db;
     return Sqflite.firstIntValue(
