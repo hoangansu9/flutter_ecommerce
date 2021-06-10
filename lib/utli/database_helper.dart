@@ -96,9 +96,9 @@ class DatabaseHelper {
 
     //User
     await db.execute(
-        'CREATE TABLE $tableUser($columnUserID INTEGER PRIMARY KEY, $columnEmail TEXT NOT NULL, $columnPassword TEXT NOT NULL )');
+        'CREATE TABLE $tableUser($columnUserID INTEGER PRIMARY KEY, $columnUserName TEXT NOT NULL, $columnEmail TEXT NOT NULL, $columnPassword TEXT NOT NULL )');
     await db.rawInsert(
-        'INSERT INTO $tableUser($columnPassword, $columnEmail) VALUES ("123444", "admin123@gmail.com")');
+        'INSERT INTO $tableUser($columnUserName, $columnPassword, $columnEmail) VALUES ("admin123","123444", "admin123@gmail.com")');
 
     ////order
     await db.execute(
@@ -307,7 +307,7 @@ class DatabaseHelper {
     var dbClient = await db;
     if (username != null && password != null) {
       var res = await dbClient.rawQuery(
-          "SELECT * FROM $tableUser WHERE $columnEmail = '$username' and $columnPassword = '$password'");
+          "SELECT * FROM $tableUser WHERE $columnUserName = '$username' or $columnEmail = '$username' and $columnPassword = '$password'");
 
       if (res.length > 0) {
         return new User.fromMap(res.first);

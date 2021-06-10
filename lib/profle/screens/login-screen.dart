@@ -145,7 +145,7 @@ class _LoginScreen extends State<LoginScreen> implements LoginCallBack {
       );
     } else {
       Fluttertoast.showToast(
-          msg: 'error',
+          msg: 'Wrong email or password',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
