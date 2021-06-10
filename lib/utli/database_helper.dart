@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:app_ecommerce/model/categories.dart';
 import 'package:app_ecommerce/model/order.dart';
 import 'package:app_ecommerce/model/products.dart';
+import 'package:app_ecommerce/model/user.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -35,6 +36,13 @@ class DatabaseHelper {
   final String columnPhoneOrder = 'phone';
   final String columnAddressOrder = 'address';
   final String columnCodeOrder = 'code';
+
+  //user
+  final String tableUser = 'userTable';
+  final String columnUserID = 'id';
+  final String columnUserName = 'userName';
+  final String columnPassword = 'password';
+  final String columnEmail = 'email';
 
   static Database _db;
 
@@ -85,6 +93,12 @@ class DatabaseHelper {
             '$columnImageProduct TEXT, $columnChipProduct TEXT, $columnCamera TEXT,$columnRam TEXT,' +
             '$columnStorage TEXT, $columnDetails TEXT, $columnFeatures TEXT, $columnPriceProduct FLOAT, ' +
             '$columnCategoryId INTEGER, CONSTRAINT fk_category_product FOREIGN KEY ($columnCategoryId) REFERENCES $tableCategory ($columnIdCate))');
+
+    //User
+    await db.execute(
+        'CREATE TABLE $tableUser($columnUserID INTEGER PRIMARY KEY, $columnUserName TEXT NOT NULL, $columnEmail TEXT NOT NULL, $columnPassword TEXT NOT NULL )');
+    await db.rawInsert(
+        'INSERT INTO $tableUser($columnUserName, $columnPassword, $columnEmail) VALUES ("admin123", "123444", "admin123@gmail.com")');
 
     ////order
     await db.execute(
@@ -257,6 +271,39 @@ class DatabaseHelper {
     var dbClient = await db;
     return await dbClient.update(tableOrder, order.toMap(),
         where: "$columnIdOrder = ?", whereArgs: [order.id]);
+  }
+//#endregion
+
+//#region user
+
+  Future<int> saveUser(User user) async {
+    var dbClient = await db;
+    var result = await dbClient.insert(tableUser, user.toMap());
+    return result;
+  }
+
+  Future<User> getUser(int id) async {
+    var dbClient = await db;
+    List<Map> result = await dbClient.query(tableUser,
+        columns: [columnUserID, columnUserName, columnPassword, columnEmail],
+        where: '$columnUserID = ?',
+        whereArgs: [id]);
+    if (result.length > 0) {
+      return new User.fromMap(result.first);
+    }
+    return null;
+  }
+
+  Future<User> getWillLoginUser(User user) async {
+    var dbClient = await db;
+    List<Map> result = await dbClient.query(tableUser,
+        columns: [columnUserID, columnUserName, columnPassword, columnEmail],
+        where: '$columnUserName = ?',
+        whereArgs: [user.userName]);
+    if (result.length > 0) {
+      return new User.fromMap(result.first);
+    }
+    return null;
   }
 //#endregion
 

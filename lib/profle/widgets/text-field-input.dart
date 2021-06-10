@@ -1,13 +1,13 @@
 import 'package:app_ecommerce/profle/pallete.dart';
 import 'package:flutter/material.dart';
 
-
 class TextInputField extends StatelessWidget {
   const TextInputField({
     Key key,
     @required this.icon,
     @required this.hint,
     this.inputType,
+    this.controller,
     this.inputAction,
   }) : super(key: key);
 
@@ -15,6 +15,7 @@ class TextInputField extends StatelessWidget {
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,7 @@ class TextInputField extends StatelessWidget {
         ),
         child: Center(
           child: TextField(
+            controller: controller,
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Padding(

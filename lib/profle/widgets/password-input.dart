@@ -7,6 +7,7 @@ class PasswordInput extends StatelessWidget {
     @required this.icon,
     @required this.hint,
     this.inputType,
+    this.controller,
     this.inputAction,
   }) : super(key: key);
 
@@ -14,7 +15,7 @@ class PasswordInput extends StatelessWidget {
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
-
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,6 +30,7 @@ class PasswordInput extends StatelessWidget {
         ),
         child: Center(
           child: TextField(
+            controller: controller,
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Padding(
