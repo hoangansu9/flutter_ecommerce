@@ -96,9 +96,9 @@ class DatabaseHelper {
 
     //User
     await db.execute(
-        'CREATE TABLE $tableUser($columnUserID INTEGER PRIMARY KEY, $columnUserName TEXT NOT NULL, $columnEmail TEXT NOT NULL, $columnPassword TEXT NOT NULL )');
+        'CREATE TABLE $tableUser($columnUserID INTEGER PRIMARY KEY, $columnEmail TEXT NOT NULL, $columnPassword TEXT NOT NULL )');
     await db.rawInsert(
-        'INSERT INTO $tableUser($columnUserName, $columnPassword, $columnEmail) VALUES ("admin123", "123444", "admin123@gmail.com")');
+        'INSERT INTO $tableUser($columnPassword, $columnEmail) VALUES ("123444", "admin123@gmail.com")');
 
     ////order
     await db.execute(
@@ -282,28 +282,27 @@ class DatabaseHelper {
     return result;
   }
 
-  Future<User> getUser(int id) async {
+  Future<User> getLogin(String username, String password) async {
     var dbClient = await db;
-    List<Map> result = await dbClient.query(tableUser,
-        columns: [columnUserID, columnUserName, columnPassword, columnEmail],
-        where: '$columnUserID = ?',
-        whereArgs: [id]);
-    if (result.length > 0) {
-      return new User.fromMap(result.first);
+    if (username != null && password != null) {
+      var res = await dbClient.rawQuery(
+          "SELECT * FROM $tableUser WHERE $columnEmail = '$username' and $columnPassword = '$password'");
+
+      if (res.length > 0) {
+        return new User.fromMap(res.first);
+      }
     }
     return null;
   }
 
-  Future<User> getWillLoginUser(User user) async {
+  Future<List<User>> getAllUser() async {
     var dbClient = await db;
-    List<Map> result = await dbClient.query(tableUser,
-        columns: [columnUserID, columnUserName, columnPassword, columnEmail],
-        where: '$columnUserName = ?',
-        whereArgs: [user.userName]);
-    if (result.length > 0) {
-      return new User.fromMap(result.first);
-    }
-    return null;
+    var res = await dbClient.query(tableUser);
+
+    List<User> list =
+        res.isNotEmpty ? res.map((c) => User.fromMap(c)).toList() : null;
+
+    return list;
   }
 //#endregion
 

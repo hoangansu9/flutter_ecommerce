@@ -5,6 +5,7 @@ import 'package:app_ecommerce/profle/widgets/background-image.dart';
 import 'package:app_ecommerce/profle/widgets/password-input.dart';
 import 'package:app_ecommerce/profle/widgets/rounded-button.dart';
 import 'package:app_ecommerce/profle/widgets/text-field-input.dart';
+import 'package:app_ecommerce/utli/LoginHelper.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,18 +16,29 @@ class LoginScreen extends StatefulWidget {
   _LoginScreen createState() => _LoginScreen();
 }
 
-class _LoginScreen extends State<LoginScreen> {
+class _LoginScreen extends State<LoginScreen> implements LoginCallBack {
   DatabaseHelper db = new DatabaseHelper();
 
-  final userNameInput = TextEditingController();
-  final passWordInput = TextEditingController();
+  final _userName = TextEditingController();
+  final _password = TextEditingController();
   User willLoginUser;
   Future<User> result;
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    userNameInput.dispose();
+    _userName.dispose();
+    _password.dispose();
     super.dispose();
+  }
+
+  LoginResponse _response;
+  _LoginScreen() {
+    _response = new LoginResponse(this);
+  }
+  void _submit() {
+    setState(() {
+      _response.doLogin(_userName.text, _password.text);
+    });
   }
 
   @override
@@ -59,13 +71,13 @@ class _LoginScreen extends State<LoginScreen> {
                     hint: 'Email',
                     inputType: TextInputType.emailAddress,
                     inputAction: TextInputAction.next,
-                    controller: userNameInput,
+                    controller: _userName,
                   ),
                   PasswordInput(
                     icon: FontAwesomeIcons.lock,
                     hint: 'Password',
                     inputAction: TextInputAction.done,
-                    controller: passWordInput,
+                    controller: _password,
                   ),
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(context, 'ForgotPassword'),
@@ -78,65 +90,7 @@ class _LoginScreen extends State<LoginScreen> {
                     height: 25,
                   ),
                   GestureDetector(
-                    onTap: () => {
-                      willLoginUser = new User(userNameInput.text,
-                          passWordInput.text, userNameInput.text),
-                      result = db.getWillLoginUser(willLoginUser),
-                      if (result != null)
-                        {
-                          // Navigator.push(
-                          //   context,
-                          //   new MaterialPageRoute(
-                          //     builder: (context) => new HomePage(),
-                          //   ),
-                          // )
-                          Fluttertoast.showToast(
-                              msg: "OK",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0)
-                        }
-                      else
-                        {
-                          Fluttertoast.showToast(
-                              msg: "The Username / Password is incorrect",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0)
-                        }
-                      // Fluttertoast.showToast(
-                      //     msg: "This is Center Short Toast",
-                      //     toastLength: Toast.LENGTH_SHORT,
-                      //     gravity: ToastGravity.CENTER,
-                      //     timeInSecForIosWeb: 1,
-                      //     backgroundColor: Colors.red,
-                      //     textColor: Colors.white,
-                      //     fontSize: 16.0)
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) {
-                      //     return AlertDialog(
-                      //       // Retrieve the text the that user has entered by using the
-                      //       // TextEditingController.
-                      //       content: Text(passWordInput.text),
-                      //     );
-                      //   },
-                      // )
-                      // onPressed: () {
-                      // },
-                      // Navigator.push(
-                      //   context,
-                      //   new MaterialPageRoute(
-                      //     builder: (context) => new HomePage(),
-                      //   ),
-                      // )
-                    },
+                    onTap: _submit,
                     child: RoundedButton(
                       buttonName: 'Login',
                     ),
@@ -166,5 +120,38 @@ class _LoginScreen extends State<LoginScreen> {
         )
       ],
     );
+  }
+
+  @override
+  void onLoginError(String error) {
+    Fluttertoast.showToast(
+        msg: error,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
+  @override
+  void onLoginSuccess(User user) {
+    if (user != null) {
+      Navigator.push(
+        context,
+        new MaterialPageRoute(
+          builder: (context) => new HomePage(),
+        ),
+      );
+    } else {
+      Fluttertoast.showToast(
+          msg: 'error',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 }
