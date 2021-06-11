@@ -17,6 +17,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> implements LoginCallBack {
+  static String routeName = "/login";
+
   DatabaseHelper db = new DatabaseHelper();
 
   final _userName = TextEditingController();
@@ -36,9 +38,20 @@ class _LoginScreen extends State<LoginScreen> implements LoginCallBack {
     _response = new LoginResponse(this);
   }
   void _submit() {
-    setState(() {
-      _response.doLogin(_userName.text, _password.text);
-    });
+    if (_userName.text == null || _password.text == null) {
+      Fluttertoast.showToast(
+          msg: 'Wrong email or password',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      setState(() {
+        _response.doLogin(_userName.text, _password.text);
+      });
+    }
   }
 
   @override
