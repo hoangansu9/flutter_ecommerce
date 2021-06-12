@@ -307,7 +307,33 @@ class DatabaseHelper {
     var dbClient = await db;
     if (username != null && password != null) {
       var res = await dbClient.rawQuery(
-          "SELECT * FROM $tableUser WHERE $columnUserName = '$username' or $columnEmail = '$username' and $columnPassword = '$password'");
+          "SELECT * FROM $tableUser WHERE ($columnUserName = '$username' or $columnEmail = '$username') and ($columnPassword = '$password')");
+
+      if (res.length > 0) {
+        return new User.fromMap(res.first);
+      }
+    }
+    return null;
+  }
+
+  Future<User> getUserByUsername(String username) async {
+    var dbClient = await db;
+    if (username != null) {
+      var res = await dbClient.rawQuery(
+          "SELECT * FROM $tableUser WHERE ($columnUserName = '$username')");
+
+      if (res.length > 0) {
+        return new User.fromMap(res.first);
+      }
+    }
+    return null;
+  }
+
+  Future<User> getUserByNameOrEmail(String username, String email) async {
+    var dbClient = await db;
+    if (username != null) {
+      var res = await dbClient.rawQuery(
+          "SELECT * FROM $tableUser WHERE ($columnUserName = '$username' or $columnEmail = '$email')");
 
       if (res.length > 0) {
         return new User.fromMap(res.first);

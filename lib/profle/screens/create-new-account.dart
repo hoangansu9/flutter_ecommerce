@@ -23,7 +23,15 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
   final inputPasswordConfirm = TextEditingController();
 
   void _submit() {
-    if (inputPassword.text != inputPasswordConfirm.text) {
+    if (inputUserName.text == '') {
+      showErrorMessage('Username is required');
+    } else if (inputEmail.text == '') {
+      showErrorMessage('Email is required');
+    } else if (inputPassword.text == '') {
+      showErrorMessage('Password is required');
+    } else if (inputPasswordConfirm.text == '') {
+      showErrorMessage('Password confirm is required');
+    } else if (inputPassword.text != inputPasswordConfirm.text) {
       handleFailPassword();
     } else {
       handleSuccesfullyRegister();
@@ -157,31 +165,26 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
   }
 
   void handleFailPassword() {
-    Fluttertoast.showToast(
-        msg: 'Password does not match, please try again!',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 2,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
+    showErrorMessage('Password does not match, please try again!');
   }
 
   void handleSuccesfullyRegister() {
     DatabaseHelper db = new DatabaseHelper();
+    var rs = db.getUserByUsername(inputUserName.text);
+    rs.then((user) => {
+          if (user != null)
+            {showErrorMessage('This user is exist, please try again')}
+          else
+            {_saveUser()}
+        });
+  }
+
+  void _saveUser() {
+    DatabaseHelper db = new DatabaseHelper();
     db.saveUser(
         new User(inputUserName.text, inputEmail.text, inputPassword.text));
-    Fluttertoast.showToast(
-        msg: 'Register succesfully',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 2,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
+    showErrorMessage('Register succesfully');
     redirectToLogin();
-    // var timer = new Timer(new Duration(seconds: 3), () => redirectToLogin());
-    // timer.cancel();
   }
 
   void redirectToLogin() {
@@ -191,5 +194,16 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
         builder: (context) => new LoginScreen(),
       ),
     );
+  }
+
+  void showErrorMessage(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 2,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }
