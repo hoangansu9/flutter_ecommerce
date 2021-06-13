@@ -1,6 +1,11 @@
 import 'package:app_ecommerce/manager/managerScreen.dart';
+import 'package:app_ecommerce/profle/screens/login-screen.dart';
+import 'package:app_ecommerce/utli/cacheHelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'model/user.dart';
 
 // ignore: must_be_immutable
 class Profile extends StatefulWidget {
@@ -19,6 +24,8 @@ class _ProfileState extends State<Profile> {
 }
 
 class Mana extends StatelessWidget {
+  final Future<User> user = CacheHelper.getCurrentUser();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,13 +39,31 @@ class Mana extends StatelessWidget {
                   'https://w0.pngwave.com/png/639/452/computer-icons-avatar-user-profile-people-icon-png-clip-art.png'),
               radius: 80.0,
             ),
-            Text(
-              'Abdulaziz Al Zaabi',
-              style: TextStyle(fontSize: 32.0),
-            ),
-            Text(
-              'FullSnack Developer',
-              style: TextStyle(fontSize: 16.0),
+            FutureBuilder(
+              future: user,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                String textUserName =
+                    snapshot.hasData ? snapshot.data.username : 'Loading...';
+                String textEmail =
+                    snapshot.hasData ? snapshot.data.email : 'Loading...';
+                return Center(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        textUserName ?? 'Loading...',
+                        style: TextStyle(fontSize: 32.0),
+                      ),
+                      Text(
+                        textEmail ?? 'Loading...',
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -90,10 +115,9 @@ class Mana extends StatelessWidget {
                   child: FloatingActionButton(
                     hoverColor: Colors.black,
                     elevation: 10,
-                    onPressed: () => {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ManagerScreen()),
-                      )
+                    onPressed: () async => {
+                      CacheHelper.removeCurrentUser(),
+                      Navigator.pushNamed(context, 'Login')
                     },
                     backgroundColor: const Color(0xffFF6E4E),
                     child: Icon(

@@ -4,8 +4,6 @@ class User {
   String _userEmail;
   String _userName;
 
-  static bool _isLoggedIn = false;
-
   User(this._userName, this._userEmail, this._userPassword);
 
   User.map(dynamic obj) {
@@ -18,6 +16,7 @@ class User {
   int get id => _id;
   String get password => _userPassword;
   String get email => _userEmail;
+  String get username => _userName;
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();

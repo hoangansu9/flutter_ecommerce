@@ -5,11 +5,14 @@ import 'package:app_ecommerce/profle/widgets/background-image.dart';
 import 'package:app_ecommerce/profle/widgets/password-input.dart';
 import 'package:app_ecommerce/profle/widgets/rounded-button.dart';
 import 'package:app_ecommerce/profle/widgets/text-field-input.dart';
+import 'package:app_ecommerce/utli/Constant.dart';
 import 'package:app_ecommerce/utli/LoginHelper.dart';
+import 'package:app_ecommerce/utli/cacheHelper.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -17,7 +20,21 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> implements LoginCallBack {
-  static String routeName = "/login";
+  @override
+  void initState() {
+    super.initState();
+    CacheHelper.isLoggedIn().then((value) => {
+          if (value)
+            {
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                  builder: (context) => new HomePage(),
+                ),
+              ),
+            }
+        });
+  }
 
   DatabaseHelper db = new DatabaseHelper();
 
@@ -148,8 +165,9 @@ class _LoginScreen extends State<LoginScreen> implements LoginCallBack {
   }
 
   @override
-  void onLoginSuccess(User user) {
+  void onLoginSuccess(User user) async {
     if (user != null) {
+      CacheHelper.saveCurrentUser(user.username, user.email);
       Navigator.push(
         context,
         new MaterialPageRoute(
