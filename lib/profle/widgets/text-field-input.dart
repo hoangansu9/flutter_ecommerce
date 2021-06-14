@@ -31,6 +31,7 @@ class TextInputField extends StatelessWidget {
         ),
         child: Center(
           child: TextField(
+            autofocus: true,
             controller: controller,
             decoration: InputDecoration(
               border: InputBorder.none,
