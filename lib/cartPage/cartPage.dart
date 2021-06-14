@@ -18,17 +18,20 @@ class _CartPageState extends State<CartPage> {
   List<Products> cartdetails = Cart().getCart();
   double sum = 0.0;
   var formatNum = NumberFormat("#,###", "it-IT");
+  List<TextEditingController> _controllers = new List();
+  var totalPriceItem = 0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     cartdetails.forEach((product) {
-      sum = sum + int.parse(product.price);
+      sum = sum + totalPriceItem;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _controllers.add(new TextEditingController());
     return Scaffold(
       body: Column(
         children: [
@@ -91,41 +94,102 @@ class _CartPageState extends State<CartPage> {
                           itemBuilder: (context, index) {
                             return Column(
                               children: [
-                                GestureDetector(
-                                  child: CartItem(
-                                    product: cartdetails[index],
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      cartdetails.removeAt(index);
-                                      sum = 0.0;
-                                      cartdetails.forEach((product) {
-                                        sum = sum + int.parse(product.price);
-                                      });
-                                      if (cartdetails.length == 0) {
-                                        Navigator.pushReplacementNamed(
-                                            context, HomePage.routeName);
-                                        AlertDialog alert = AlertDialog(
-                                          title: Text("Cart Empty"),
-                                          content: Text("Your cart is empty"),
-                                          actions: <Widget>[
-                                            new FlatButton(
-                                              child: new Text("Close"),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
+                                Container(
+                                  color: Colors.transparent,
+                                  padding: EdgeInsets.all(16),
+                                  child: Row(children: [
+                                    Container(
+                                      height: 111,
+                                      width: 89,
+                                      decoration: new BoxDecoration(
+                                        border: Border.all(color: Colors.white),
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                      ),
+                                      child: Utility.imageFromBase64String(
+                                          cartdetails[index].image),
+                                    ),
+                                    Expanded(
+                                        child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(cartdetails[index].name,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white)),
+                                        Text(
+                                            formatNum
+                                                    .format(int.parse(
+                                                        cartdetails[index]
+                                                            .price))
+                                                    .toString() +
+                                                "₫",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Color(0xffFF6E4E))),
+                                      ],
+                                    )),
+                                    Expanded(
+                                      child: TextField(
+                                        onChanged: (text) {
+                                          setState(() {
+                                            sum += int.parse(
+                                                    _controllers[index].text) *
+                                                int.parse(
+                                                    cartdetails[index].price);
+                                          });
+
+                                          print(totalPriceItem);
+                                        },
+                                        decoration: InputDecoration(
+                                            fillColor: Colors.red,
+                                            filled: true),
+                                        controller: _controllers[index],
+                                        keyboardType: TextInputType.number,
+                                      ),
+                                    ),
+                                    TextButton(
+                                      child: Icon(
+                                        Icons.delete_outlined,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          cartdetails.removeAt(index);
+                                          sum = 0.0;
+                                          cartdetails.forEach((product) {
+                                            sum =
+                                                sum + int.parse(product.price);
+                                          });
+                                          if (cartdetails.length == 0) {
+                                            Navigator.pushReplacementNamed(
+                                                context, HomePage.routeName);
+                                            AlertDialog alert = AlertDialog(
+                                              title: Text("Cart Empty"),
+                                              content:
+                                                  Text("Your cart is empty"),
+                                              actions: <Widget>[
+                                                new FlatButton(
+                                                  child: new Text("Close"),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return alert;
                                               },
-                                            ),
-                                          ],
-                                        );
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return alert;
-                                          },
-                                        );
-                                      }
-                                    });
-                                  },
+                                            );
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ]),
                                 ),
                                 Divider()
                               ],
@@ -232,53 +296,4 @@ Widget topNav(BuildContext context) {
       ),
     ],
   );
-}
-
-class CartItem extends StatelessWidget {
-  Products product;
-
-  CartItem({this.product});
-  var formatNum = NumberFormat("#,###", "it-IT");
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.transparent,
-      padding: EdgeInsets.all(16),
-      child: Row(children: [
-        Container(
-          height: 111,
-          width: 89,
-          decoration: new BoxDecoration(
-            border: Border.all(color: Colors.white),
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-          ),
-          // child: Image.asset(
-          //   product.image,
-          //   fit: BoxFit.contain,
-          // ),
-          child: Utility.imageFromBase64String(product.image),
-        ),
-        Expanded(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(product.name,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white)),
-            Text(formatNum.format(int.parse(product.price)).toString() + "₫",
-                style: TextStyle(fontSize: 20, color: Color(0xffFF6E4E))),
-          ],
-        )),
-        TextButton(
-            onPressed: () {},
-            child: Icon(
-              Icons.delete_outlined,
-              color: Colors.white,
-            )),
-      ]),
-    );
-  }
 }

@@ -5,14 +5,12 @@ import 'package:app_ecommerce/profle/widgets/background-image.dart';
 import 'package:app_ecommerce/profle/widgets/password-input.dart';
 import 'package:app_ecommerce/profle/widgets/rounded-button.dart';
 import 'package:app_ecommerce/profle/widgets/text-field-input.dart';
-import 'package:app_ecommerce/utli/Constant.dart';
 import 'package:app_ecommerce/utli/LoginHelper.dart';
 import 'package:app_ecommerce/utli/cacheHelper.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

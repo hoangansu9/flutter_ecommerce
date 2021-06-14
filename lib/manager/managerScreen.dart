@@ -128,6 +128,7 @@ class _ManagerScreenState extends State<ManagerScreen> {
                       ),
                       Expanded(
                         child: GestureDetector(
+                          
                             onTap: () =>
                                 _navigateToProduct(context, items[position]),
                             child: Column(
