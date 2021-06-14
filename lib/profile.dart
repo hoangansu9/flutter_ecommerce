@@ -1,9 +1,7 @@
 import 'package:app_ecommerce/manager/managerScreen.dart';
-import 'package:app_ecommerce/profle/screens/login-screen.dart';
 import 'package:app_ecommerce/utli/cacheHelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'model/user.dart';
 
@@ -60,51 +58,33 @@ class Mana extends StatelessWidget {
                         textEmail ?? 'Loading...',
                         style: TextStyle(fontSize: 16.0),
                       ),
+                      textEmail == 'admin123@gmail.com'
+                          ? Container(
+                              margin: EdgeInsets.only(top: 20),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xffFF6E4E),
+                              ),
+                              child: IconButton(
+                                onPressed: () => {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ManagerScreen()))
+                                },
+                                color: Color(0xffFF6E4E),
+                                icon: Icon(
+                                  Icons.settings,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          : Text(''),
                     ],
                   ),
                 );
               },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.brown,
-                      radius: 32,
-                      child: Text(
-                        '50',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Text('Followers')
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    RawMaterialButton(
-                      onPressed: () => {},
-                      elevation: 2.0,
-                      fillColor: const Color(0xffFF6E4E),
-                      child: Icon(
-                        Icons.settings,
-                        size: 35.0,
-                        color: Colors.white,
-                      ),
-                      padding: EdgeInsets.all(15.0),
-                      shape: CircleBorder(),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Text('Manager')
-                  ],
-                )
-              ],
             ),
             Container(
               padding: EdgeInsets.only(bottom: 40, right: 30),
@@ -121,7 +101,7 @@ class Mana extends StatelessWidget {
                     },
                     backgroundColor: const Color(0xffFF6E4E),
                     child: Icon(
-                      Icons.settings,
+                      Icons.logout_outlined,
                     ),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(40.0))),
