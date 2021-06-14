@@ -4,6 +4,7 @@ import 'package:app_ecommerce/model/carts.dart';
 import 'package:app_ecommerce/model/products.dart';
 import 'package:app_ecommerce/utli/Utility.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class CartPage extends StatefulWidget {
@@ -16,13 +17,13 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   List<Products> cartdetails = Cart().getCart();
   double sum = 0.0;
-
+  var formatNum = NumberFormat("#,###", "it-IT");
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     cartdetails.forEach((product) {
-      sum = sum + product.price;
+      sum = sum + int.parse(product.price);
     });
   }
 
@@ -59,7 +60,7 @@ class _CartPageState extends State<CartPage> {
                     color: const Color(0xFFFF6E4E),
                     borderRadius: BorderRadius.circular(4)),
                 child: Text(
-                  sum.toString(),
+                  formatNum.format(sum) + "₫",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
@@ -99,7 +100,7 @@ class _CartPageState extends State<CartPage> {
                                       cartdetails.removeAt(index);
                                       sum = 0.0;
                                       cartdetails.forEach((product) {
-                                        sum = sum + product.price;
+                                        sum = sum + int.parse(product.price);
                                       });
                                       if (cartdetails.length == 0) {
                                         Navigator.pushReplacementNamed(
@@ -237,7 +238,7 @@ class CartItem extends StatelessWidget {
   Products product;
 
   CartItem({this.product});
-
+  var formatNum = NumberFormat("#,###", "it-IT");
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -267,7 +268,7 @@ class CartItem extends StatelessWidget {
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white)),
-            Text(product.price.toString() + " ₫",
+            Text(formatNum.format(int.parse(product.price)).toString() + "₫",
                 style: TextStyle(fontSize: 20, color: Color(0xffFF6E4E))),
           ],
         )),

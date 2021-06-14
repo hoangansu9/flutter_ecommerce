@@ -8,8 +8,9 @@ class Products {
   String _storage;
   String _details;
   String _features;
-  double _price;
+  String _price;
   int _categoryId;
+  String _quantity;
 
   Products(
       this._name,
@@ -21,8 +22,8 @@ class Products {
       this._details,
       this._features,
       this._price,
-      this._categoryId);
-
+      this._categoryId,
+      this._quantity);
 
   Products.map(dynamic obj) {
     this._id = obj['id'];
@@ -35,6 +36,7 @@ class Products {
     this._features = obj['features'];
     this._price = obj['price'];
     this._categoryId = obj['categoryId'];
+    this._quantity = obj['quantity'];
   }
 
   int get id => _id;
@@ -46,8 +48,9 @@ class Products {
   String get storage => _storage;
   String get details => _details;
   String get features => _features;
-  double get price => _price;
+  String get price => _price;
   int get categoryId => _categoryId;
+  String get quantity => _quantity;
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
@@ -64,6 +67,7 @@ class Products {
     map['features'] = _features;
     map['price'] = _price;
     map['categoryId'] = _categoryId;
+    map['quantity'] = _quantity;
     return map;
   }
 
@@ -79,5 +83,6 @@ class Products {
     this._features = map['features'];
     this._price = map['price'];
     this._categoryId = map['categoryId'];
+    this._quantity = map['quantity'];
   }
 }

@@ -5,6 +5,7 @@ import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 class ProductPopular extends StatefulWidget {
   @override
@@ -91,7 +92,7 @@ class ProductItem extends StatelessWidget {
   Products product;
 
   ProductItem({this.product});
-
+  var formatNum = NumberFormat("#,###", "it-IT");
   @override
   Widget build(BuildContext context) {
     if (product.image != null) {}
@@ -141,7 +142,10 @@ class ProductItem extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(left: 21, top: 5),
                         child: Text(
-                          product.price.toString() + "₫",
+                          formatNum
+                                  .format(int.parse(product.price))
+                                  .toString() +
+                              "₫",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

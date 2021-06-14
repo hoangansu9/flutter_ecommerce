@@ -29,6 +29,7 @@ class DatabaseHelper {
   final String columnFeatures = 'features';
   final String columnPriceProduct = 'price';
   final String columnCategoryId = 'categoryId';
+  final String columnQuantity = 'quantity';
   //order
   final String tableOrder = 'orderTable';
   final String columnIdOrder = 'id';
@@ -89,9 +90,9 @@ class DatabaseHelper {
 
     ///product
     await db.execute(
-        'CREATE TABLE $tableProduct($columnIdProduct INTEGER PRIMARY KEY, $columnNameProduct TEXT,' +
+        'CREATE TABLE $tableProduct($columnIdProduct INTEGER PRIMARY KEY, $columnNameProduct TEXT, $columnQuantity TEXT, ' +
             '$columnImageProduct TEXT, $columnChipProduct TEXT, $columnCamera TEXT,$columnRam TEXT,' +
-            '$columnStorage TEXT, $columnDetails TEXT, $columnFeatures TEXT, $columnPriceProduct FLOAT, ' +
+            '$columnStorage TEXT, $columnDetails TEXT, $columnFeatures TEXT, $columnPriceProduct TEXT, ' +
             '$columnCategoryId INTEGER, CONSTRAINT fk_category_product FOREIGN KEY ($columnCategoryId) REFERENCES $tableCategory ($columnIdCate))');
 
     //User
@@ -170,7 +171,8 @@ class DatabaseHelper {
       columnDetails,
       columnFeatures,
       columnPriceProduct,
-      columnCategoryId
+      columnCategoryId,
+      columnQuantity,
     ]);
     return result.toList();
   }
@@ -189,7 +191,8 @@ class DatabaseHelper {
           columnDetails,
           columnFeatures,
           columnPriceProduct,
-          columnCategoryId
+          columnCategoryId,
+          columnQuantity,
         ],
         where: '$columnCategoryId = ?',
         whereArgs: [idCate]);
@@ -216,7 +219,8 @@ class DatabaseHelper {
           columnDetails,
           columnFeatures,
           columnPriceProduct,
-          columnCategoryId
+          columnCategoryId,
+          columnQuantity,
         ],
         where: '$columnIdProduct = ?',
         whereArgs: [id]);

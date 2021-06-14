@@ -9,6 +9,7 @@ class ProductDetail extends StatelessWidget {
   static String routeName = "/product_detail_screen";
   final Products product;
   ProductDetail({Key key, this.product}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final hotSale = [4];

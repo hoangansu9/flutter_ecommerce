@@ -2,10 +2,12 @@ import 'package:app_ecommerce/manager/Items/products.dart';
 import 'package:app_ecommerce/manager/categories_manager.dart';
 import 'package:app_ecommerce/manager/order_manager.dart';
 import 'package:app_ecommerce/model/products.dart';
+import 'package:app_ecommerce/utli/Utility.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:drawer_component/drawer_component.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class ManagerScreen extends StatefulWidget {
@@ -38,6 +40,7 @@ class _ManagerScreenState extends State<ManagerScreen> {
   }
 
   final bool checkbox = true;
+  var formatNum = NumberFormat("#,###", "it-IT");
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -105,31 +108,56 @@ class _ManagerScreenState extends State<ManagerScreen> {
               return Column(
                 children: [
                   Divider(height: 5.0),
-                  ListTile(
-                    leading: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        IconButton(
-                            icon: const Icon(Icons.remove_circle_outlined),
-                            onPressed: () => _deleteProuct(
-                                context, items[position], position)),
-                      ],
-                    ),
-                    title: Text(
-                      '${items[position].name}',
-                      style: TextStyle(
-                        fontSize: 22.0,
-                        color: Colors.green,
+                  Container(
+                    padding: EdgeInsets.all(16),
+                    child: Row(children: [
+                      GestureDetector(
+                        onTap: () =>
+                            _navigateToProduct(context, items[position]),
+                        child: Container(
+                          height: 111,
+                          width: 89,
+                          decoration: new BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: Utility.imageFromBase64String(
+                              items[position].image),
+                        ),
                       ),
-                    ),
-                    // subtitle: Text(
-                    //   '${items[position].image}',
-                    //   style: new TextStyle(
-                    //       fontSize: 18.0,
-                    //       fontStyle: FontStyle.italic,
-                    //       color: Colors.deepOrangeAccent),
-                    // ),
-                    onTap: () => _navigateToProduct(context, items[position]),
+                      Expanded(
+                        child: GestureDetector(
+                            onTap: () =>
+                                _navigateToProduct(context, items[position]),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(items[position].name,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black)),
+                                Text(
+                                    formatNum
+                                            .format(int.parse(
+                                                items[position].price))
+                                            .toString() +
+                                        "₫",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Color(0xffFF6E4E))),
+                              ],
+                            )),
+                      ),
+                      TextButton(
+                          onPressed: () =>
+                              _deleteProuct(context, items[position], position),
+                          child: Icon(
+                            Icons.delete_outlined,
+                            color: Colors.black,
+                          )),
+                    ]),
                   ),
                 ],
               );
@@ -142,6 +170,7 @@ class _ManagerScreenState extends State<ManagerScreen> {
     ));
   }
 
+  // ignore: unused_element
   void _deleteProuct(
       BuildContext context, Products product, int position) async {
     db.deleteCate(product.id).then((products) {
@@ -173,8 +202,8 @@ class _ManagerScreenState extends State<ManagerScreen> {
     String result = await Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) =>
-              ProductScreen(Products('', '', '', '', '', '', '', '', 0, 0))),
+          builder: (context) => ProductScreen(
+              Products('', '', '', '', '', '', '', '', '', 1, ''))),
     );
 
     if (result == 'save') {

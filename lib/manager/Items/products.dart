@@ -35,6 +35,7 @@ class _ProductScreenState extends State<ProductScreen> {
   TextEditingController _featuresController;
   TextEditingController _priceController;
   TextEditingController _categoryIdController;
+  TextEditingController _quantityController;
   final String imgPicker = '';
   @override
   void initState() {
@@ -51,10 +52,11 @@ class _ProductScreenState extends State<ProductScreen> {
         new TextEditingController(text: widget.product.details);
     _featuresController =
         new TextEditingController(text: widget.product.features);
-    _priceController =
-        new TextEditingController(text: widget.product.price.toString());
+    _priceController = new TextEditingController(text: widget.product.price);
     _categoryIdController =
         new TextEditingController(text: widget.product.categoryId.toString());
+    _quantityController =
+        new TextEditingController(text: widget.product.quantity);
   }
 
   @override
@@ -120,11 +122,19 @@ class _ProductScreenState extends State<ProductScreen> {
             ),
             Padding(padding: new EdgeInsets.all(5.0)),
             TextField(
+              keyboardType: TextInputType.number,
               controller: _priceController,
               decoration: InputDecoration(labelText: 'Price'),
             ),
             Padding(padding: new EdgeInsets.all(5.0)),
             TextField(
+              keyboardType: TextInputType.number,
+              controller: _quantityController,
+              decoration: InputDecoration(labelText: 'Quantity'),
+            ),
+            Padding(padding: new EdgeInsets.all(5.0)),
+            TextField(
+              keyboardType: TextInputType.number,
               controller: _categoryIdController,
               decoration: InputDecoration(labelText: 'CategoryId'),
             ),
@@ -145,7 +155,8 @@ class _ProductScreenState extends State<ProductScreen> {
                     'details': _detailsController.text,
                     'features': _featuresController.text,
                     'price': _priceController.text,
-                    'categoryId': _categoryIdController.text
+                    'categoryId': int.parse(_categoryIdController.text),
+                    'quantity': _quantityController.text
                   }))
                       .then((_) {
                     Navigator.pop(context, 'update');
@@ -161,8 +172,9 @@ class _ProductScreenState extends State<ProductScreen> {
                           _storageController.text,
                           _detailsController.text,
                           _featuresController.text,
-                          double.parse(_priceController.text),
-                          int.parse(_categoryIdController.text)))
+                          _priceController.text,
+                          int.parse(_categoryIdController.text),
+                          _quantityController.text))
                       .then((_) {
                     Navigator.pop(context, 'save');
                   });

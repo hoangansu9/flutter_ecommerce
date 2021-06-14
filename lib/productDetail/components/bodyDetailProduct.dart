@@ -5,10 +5,9 @@ import 'package:app_ecommerce/model/products.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:line_icons/line_icon.dart';
-
 import 'package:rating_bar/rating_bar.dart';
-
 
 // ignore: must_be_immutable
 class BodyDetailProduct extends StatelessWidget {
@@ -17,11 +16,9 @@ class BodyDetailProduct extends StatelessWidget {
   BodyDetailProduct({this.product});
 
   List<String> savedWords = <String>[];
-
+  var formatNum = NumberFormat("#,###", "it-IT");
   @override
-  Widget build(BuildContext  context) {
-
-
+  Widget build(BuildContext context) {
     bool isSaved = false;
     return Row(
       children: [
@@ -34,14 +31,8 @@ class BodyDetailProduct extends StatelessWidget {
                   topRight: Radius.circular(40), topLeft: Radius.circular(40)),
             ),
             margin: EdgeInsets.only(top: 7),
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
-            height: MediaQuery
-                .of(context)
-                .size
-                .height - 357,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height - 357,
             // height: 402,
             child: Column(
               children: [
@@ -83,17 +74,20 @@ class BodyDetailProduct extends StatelessWidget {
                         // color: Colors.white,
                         tooltip: "Likes",
                         onPressed: () {
-                          !savedWords.contains(product.name) ? savedWords.add(product.name) : savedWords.remove(product.name);
-                            // pushToFavoriteWordsRoute(context);
+                          !savedWords.contains(product.name)
+                              ? savedWords.add(product.name)
+                              : savedWords.remove(product.name);
+                          // pushToFavoriteWordsRoute(context);
 
                           Scaffold.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(savedWords.contains(product.name) ? 'Added to favorites.' : 'Removed from favorites.'),
+                              content: Text(savedWords.contains(product.name)
+                                  ? 'Added to favorites.'
+                                  : 'Removed from favorites.'),
                               duration: Duration(seconds: 1),
                             ),
                           );
                         },
-
                       ),
                     ),
                   ],
@@ -173,90 +167,90 @@ class BodyDetailProduct extends StatelessWidget {
                         Expanded(
                           child: TabBarView(
 
-                            /// nội dung từng tabbar ứng với thứ tự
+                              /// nội dung từng tabbar ứng với thứ tự
                               children: [
                                 Container(
                                     child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Column(
                                           children: [
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  margin:
+                                            Container(
+                                              margin:
                                                   EdgeInsets.only(bottom: 5),
-                                                  height: 30,
-                                                  width: 30,
-                                                  child: Image.asset(
-                                                      'assets/component.png'),
-                                                ),
-                                                Text(
-                                                  product.chip,
-                                                  style: TextStyle(
-                                                      color: Color(0xffB7B7B7)),
-                                                )
-                                              ],
+                                              height: 30,
+                                              width: 30,
+                                              child: Image.asset(
+                                                  'assets/component.png'),
                                             ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  margin:
+                                            Text(
+                                              product.chip,
+                                              style: TextStyle(
+                                                  color: Color(0xffB7B7B7)),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Container(
+                                              margin:
                                                   EdgeInsets.only(bottom: 5),
-                                                  height: 30,
-                                                  width: 30,
-                                                  child: Image.asset(
-                                                      'assets/camera.png'),
-                                                ),
-                                                Text(
-                                                  product.camera,
-                                                  style: TextStyle(
-                                                      color: Color(0xffB7B7B7)),
-                                                )
-                                              ],
+                                              height: 30,
+                                              width: 30,
+                                              child: Image.asset(
+                                                  'assets/camera.png'),
                                             ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  margin:
+                                            Text(
+                                              product.camera,
+                                              style: TextStyle(
+                                                  color: Color(0xffB7B7B7)),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Container(
+                                              margin:
                                                   EdgeInsets.only(bottom: 5),
-                                                  height: 30,
-                                                  width: 30,
-                                                  child:
+                                              height: 30,
+                                              width: 30,
+                                              child:
                                                   Image.asset('assets/ram.png'),
-                                                ),
-                                                Text(
-                                                  product.ram,
-                                                  style: TextStyle(
-                                                      color: Color(0xffB7B7B7)),
-                                                )
-                                              ],
                                             ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  margin:
+                                            Text(
+                                              product.ram,
+                                              style: TextStyle(
+                                                  color: Color(0xffB7B7B7)),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Container(
+                                              margin:
                                                   EdgeInsets.only(bottom: 5),
-                                                  height: 30,
-                                                  width: 30,
-                                                  child: Image.asset(
-                                                      'assets/memory.png'),
-                                                ),
-                                                Text(
-                                                  product.storage,
-                                                  style: TextStyle(
-                                                      color: Color(0xffB7B7B7)),
-                                                )
-                                              ],
+                                              height: 30,
+                                              width: 30,
+                                              child: Image.asset(
+                                                  'assets/memory.png'),
+                                            ),
+                                            Text(
+                                              product.storage,
+                                              style: TextStyle(
+                                                  color: Color(0xffB7B7B7)),
                                             )
                                           ],
                                         )
                                       ],
-                                    )),
+                                    )
+                                  ],
+                                )),
                                 Container(
                                   margin: EdgeInsets.only(left: 20, right: 20),
                                   child: Text(
@@ -361,7 +355,7 @@ class BodyDetailProduct extends StatelessWidget {
                               child: Text(
                                 "256 GB",
                                 style:
-                                TextStyle(color: const Color(0xff8D8D8D)),
+                                    TextStyle(color: const Color(0xff8D8D8D)),
                               ),
                               onPressed: () {},
                             )),
@@ -385,10 +379,7 @@ class BodyDetailProduct extends StatelessWidget {
                                     builder: (context) => CartPage()));
                             Cart cart = Cart();
                             cart.addProductToCart(product);
-                            print(cart
-                                .getCart()
-                                .length
-                                .toString());
+                            print(cart.getCart().length.toString());
                             Fluttertoast.showToast(
                                 msg: "Add to cart",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -402,7 +393,7 @@ class BodyDetailProduct extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Color(0xffFF6E4E)),
                             foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                                MaterialStateProperty.all<Color>(Colors.white),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -418,7 +409,10 @@ class BodyDetailProduct extends StatelessWidget {
                               Container(
                                 margin: EdgeInsets.only(right: 20),
                                 child: Text(
-                                  product.price.toString(),
+                                  formatNum
+                                          .format(int.parse(product.price))
+                                          .toString() +
+                                      "₫",
                                   style: TextStyle(fontSize: 18),
                                 ),
                               ),
@@ -434,8 +428,8 @@ class BodyDetailProduct extends StatelessWidget {
       ],
     );
   }
-  Future pushToFavoriteWordsRoute(BuildContext context) {
 
+  Future pushToFavoriteWordsRoute(BuildContext context) {
     return Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) => FavoritesPage(
@@ -445,4 +439,3 @@ class BodyDetailProduct extends StatelessWidget {
     );
   }
 }
-
