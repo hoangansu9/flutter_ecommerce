@@ -1,9 +1,12 @@
 import 'package:app_ecommerce/homepage/homepage.dart';
 import 'package:app_ecommerce/model/carts.dart';
 import 'package:app_ecommerce/model/order.dart';
+import 'package:app_ecommerce/model/user.dart';
+import 'package:app_ecommerce/utli/cacheHelper.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 
@@ -17,19 +20,25 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   DatabaseHelper db = new DatabaseHelper();
   DateTime localDate = DateTime.now();
-
+  List<CartItem> cartdetails = Cart().getCart();
+  Future<User> user = CacheHelper.getCurrentUser();
   TextEditingController _nameController;
   TextEditingController _phoneController;
   TextEditingController _addressController;
+  double sum = 0;
   @override
   void initState() {
     super.initState();
-
+    cartdetails.forEach((product) {
+      sum += sum +
+          int.parse(product.price) * int.parse(product.quantity.toString());
+    });
     _nameController = new TextEditingController();
     _phoneController = new TextEditingController();
     _addressController = new TextEditingController();
   }
 
+  var formatNum = NumberFormat("#,###", "it-IT");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,10 +51,19 @@ class _CheckoutPageState extends State<CheckoutPage> {
         body: ListView(
           padding: EdgeInsets.all(15),
           children: [
-            TextField(
-              controller: _nameController,
-              decoration: InputDecoration(labelText: 'Name'),
+            Text(
+              'Total: ${formatNum.format(sum).toString()} ₫',
+              style: TextStyle(fontSize: 25, color: Colors.black),
             ),
+            FutureBuilder(
+                future: user,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  String textUserName =
+                      snapshot.hasData ? snapshot.data.username : 'Loading...';
+                  _nameController.text = textUserName;
+                  return Text('UserName: ' + textUserName,
+                      style: TextStyle(fontSize: 25, color: Colors.black));
+                }),
             Padding(padding: new EdgeInsets.all(5.0)),
             TextField(
               controller: _phoneController,
@@ -65,7 +83,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         _nameController.text,
                         _phoneController.text,
                         _addressController.text,
-                        'OD' + localDate.toString()))
+                        sum.toString()))
                     .then((_) {
                   Cart.cart.clear();
                   Dialogs.bottomMaterialDialog(

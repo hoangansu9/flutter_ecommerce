@@ -12,9 +12,14 @@ class CacheHelper {
 
   static Future<User> getCurrentUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     var username = prefs.getString(userName);
     var email = prefs.getString(userEmail);
-    return new User(username, email, null);
+
+    // return new User(username, email, null);
+
+    return Future.delayed(
+        Duration(seconds: 1), () => User(username, email, null));
   }
 
   static removeCurrentUser() async {

@@ -1,7 +1,6 @@
 import 'package:app_ecommerce/checkoutPage/checkout.dart';
 import 'package:app_ecommerce/homepage/homepage.dart';
 import 'package:app_ecommerce/model/carts.dart';
-import 'package:app_ecommerce/model/products.dart';
 import 'package:app_ecommerce/utli/Utility.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,23 +14,25 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  List<Products> cartdetails = Cart().getCart();
+  List<CartItem> cartdetails = Cart().getCart();
   double sum = 0.0;
   var formatNum = NumberFormat("#,###", "it-IT");
   List<TextEditingController> _controllers = new List();
-  var totalPriceItem = 0;
+  double defaultSum = 0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    cartdetails.forEach((product) {
-      sum = sum + totalPriceItem;
+    cartdetails.forEach((carttem) {
+      sum += int.parse(carttem.price) * carttem.quantity;
     });
+    defaultSum = sum;
   }
 
   @override
   Widget build(BuildContext context) {
-    _controllers.add(new TextEditingController());
+    // _controllers.add(new TextEditingController());
+    // text: cartdetails[index].quantity.toString()));
     return Scaffold(
       body: Column(
         children: [
@@ -92,64 +93,14 @@ class _CartPageState extends State<CartPage> {
                           shrinkWrap: true,
                           itemCount: cartdetails.length,
                           itemBuilder: (context, index) {
+                            _controllers.add(new TextEditingController(
+                                text: cartdetails[index].quantity.toString()));
                             return Column(
                               children: [
                                 Container(
                                   color: Colors.transparent,
                                   padding: EdgeInsets.all(16),
                                   child: Row(children: [
-                                    Container(
-                                      height: 111,
-                                      width: 89,
-                                      decoration: new BoxDecoration(
-                                        border: Border.all(color: Colors.white),
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                      ),
-                                      child: Utility.imageFromBase64String(
-                                          cartdetails[index].image),
-                                    ),
-                                    Expanded(
-                                        child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(cartdetails[index].name,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white)),
-                                        Text(
-                                            formatNum
-                                                    .format(int.parse(
-                                                        cartdetails[index]
-                                                            .price))
-                                                    .toString() +
-                                                "₫",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Color(0xffFF6E4E))),
-                                      ],
-                                    )),
-                                    Expanded(
-                                      child: TextField(
-                                        onChanged: (text) {
-                                          setState(() {
-                                            sum += int.parse(
-                                                    _controllers[index].text) *
-                                                int.parse(
-                                                    cartdetails[index].price);
-                                          });
-
-                                          print(totalPriceItem);
-                                        },
-                                        decoration: InputDecoration(
-                                            fillColor: Colors.red,
-                                            filled: true),
-                                        controller: _controllers[index],
-                                        keyboardType: TextInputType.number,
-                                      ),
-                                    ),
                                     TextButton(
                                       child: Icon(
                                         Icons.delete_outlined,
@@ -189,6 +140,68 @@ class _CartPageState extends State<CartPage> {
                                         });
                                       },
                                     ),
+                                    Container(
+                                      height: 111,
+                                      width: 89,
+                                      decoration: new BoxDecoration(
+                                        border: Border.all(color: Colors.white),
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                      ),
+                                      child: Utility.imageFromBase64String(
+                                          cartdetails[index].image),
+                                    ),
+                                    Expanded(
+                                        child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(cartdetails[index].productName,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white)),
+                                        Text(
+                                            formatNum
+                                                    .format(int.parse(
+                                                        cartdetails[index]
+                                                            .price))
+                                                    .toString() +
+                                                "₫",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Color(0xffFF6E4E))),
+                                      ],
+                                    )),
+                                    Expanded(
+                                      child: TextField(
+                                        onChanged: (text) {
+                                          cartdetails[index].quantity =
+                                              int.parse(text);
+                                          print(cartdetails[index].quantity);
+                                        },
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                        decoration: InputDecoration(
+                                            fillColor: Colors.transparent,
+                                            filled: true),
+                                        controller: _controllers[index],
+                                        keyboardType: TextInputType.number,
+                                      ),
+                                    ),
+                                    TextButton(
+                                        onPressed: () {
+                                          sum = 0;
+                                          setState(() {
+                                            cartdetails.forEach((element) {
+                                              var total = element.quantity *
+                                                  int.parse(element.price);
+                                              sum += total;
+                                              print(sum);
+                                            });
+                                          });
+                                        },
+                                        child: Text('Update')),
                                   ]),
                                 ),
                                 Divider()

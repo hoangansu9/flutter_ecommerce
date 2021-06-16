@@ -36,7 +36,7 @@ class DatabaseHelper {
   final String columnNameOrder = 'name';
   final String columnPhoneOrder = 'phone';
   final String columnAddressOrder = 'address';
-  final String columnCodeOrder = 'code';
+  final String columnTotalOrder = 'total';
 
   //user
   final String tableUser = 'userTable';
@@ -103,7 +103,7 @@ class DatabaseHelper {
 
     ////order
     await db.execute(
-        'CREATE TABLE $tableOrder($columnIdOrder INTEGER PRIMARY KEY, $columnNameOrder TEXT, $columnPhoneOrder TEXT, $columnAddressOrder TEXT, $columnCodeOrder TEXT)');
+        'CREATE TABLE $tableOrder($columnIdOrder INTEGER PRIMARY KEY, $columnNameOrder TEXT, $columnPhoneOrder TEXT, $columnAddressOrder TEXT, $columnTotalOrder TEXT)');
   }
 
 //#region category
@@ -257,7 +257,7 @@ class DatabaseHelper {
       columnNameOrder,
       columnPhoneOrder,
       columnAddressOrder,
-      columnCodeOrder
+      columnTotalOrder
     ]);
     return result.toList();
   }
@@ -276,7 +276,7 @@ class DatabaseHelper {
           columnNameOrder,
           columnPhoneOrder,
           columnAddressOrder,
-          columnCodeOrder
+          columnTotalOrder
         ],
         where: '$columnIdOrder = ?',
         whereArgs: [id]);

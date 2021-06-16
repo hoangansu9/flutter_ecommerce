@@ -1,6 +1,7 @@
 import 'package:app_ecommerce/model/order.dart';
 import 'package:app_ecommerce/utli/database_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class OrderManager extends StatefulWidget {
@@ -25,6 +26,7 @@ class _OrderManagerState extends State {
     });
   }
 
+  var formatNum = NumberFormat("#,###", "it-IT");
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,14 +56,14 @@ class _OrderManagerState extends State {
                         ],
                       ),
                       title: Text(
-                        '${items[position].code}',
+                        '${items[position].name + items[position].phone}',
                         style: TextStyle(
                           fontSize: 22.0,
                           color: Colors.green,
                         ),
                       ),
                       subtitle: Text(
-                        '${items[position].name + items[position].phone}',
+                        '${items[position].total}',
                         style: new TextStyle(
                             fontSize: 18.0,
                             fontStyle: FontStyle.italic,
